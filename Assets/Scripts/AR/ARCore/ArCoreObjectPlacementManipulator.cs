@@ -18,9 +18,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Collections.Generic;
 using GoogleARCore;
 using GoogleARCore.Examples.ObjectManipulation;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace AR.ARCore
 {
@@ -67,6 +69,9 @@ namespace AR.ARCore
                 return;
             }
 
+            if (IsPointerOverUiObject(gesture))
+                return;
+
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon;
@@ -105,6 +110,20 @@ namespace AR.ARCore
                     manipulator.GetComponent<Manipulator>().Select();
                 }
             }
+        }
+
+        private static bool IsPointerOverUiObject(TapGesture gesture)
+        {
+            // Referencing this code for GraphicRaycaster https://gist.github.com/stramit/ead7ca1f432f3c0f181f
+            // the ray cast appears to require only eventData.position.
+            var eventDataCurrentPosition = new PointerEventData(EventSystem.current)
+            {
+                position = new Vector2(gesture.StartPosition.x, gesture.StartPosition.y)
+            };
+
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+            return results.Count > 0;
         }
     }
 }
