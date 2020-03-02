@@ -33,7 +33,7 @@ namespace AR.ARCore
     {
         public Camera firstPersonCamera;
 
-        public GameObject prefab;
+        public GameObject placedPrefab;
         public GameObject ManipulatorPrefab;
 
 
@@ -90,7 +90,7 @@ namespace AR.ARCore
                 else
                 {
                     // Instantiate game object at the hit pose.
-                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+                    var gameObject = Instantiate(placedPrefab, hit.Pose.position, hit.Pose.rotation);
 
                     // Instantiate manipulator.
                     var manipulator =

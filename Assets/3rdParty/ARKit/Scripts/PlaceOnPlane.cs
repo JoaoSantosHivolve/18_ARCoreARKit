@@ -74,6 +74,7 @@ public class PlaceOnPlane : MonoBehaviour
             }
             else
             {
+                // Move object
                 spawnedObject.transform.position = hitPose.position;
             }
         }
