@@ -22,7 +22,7 @@ namespace AR.ARKit
         {
             var touch = Input.GetTouch(0);
 
-            if (touch.phase != TouchPhase.Began)
+            if (touch.phase != TouchPhase.Began || Input.touchCount != 1)
                 return;
 
             //if (!TryGetTouchPosition(out var touchPosition))
@@ -49,6 +49,8 @@ namespace AR.ARKit
                     prefab.transform.parent = manipulatorsManager.transform;
                     prefab.GetComponent<ArKitObject>().manager = manipulatorsManager;
                     manipulatorsManager.ArKitObject = prefab.GetComponent<ArKitObject>();
+                    manipulatorsManager.rayCastManager = raycastManager;
+                    manipulatorsManager.mainCamera = mainCamera;
 
                     // Instantiate object selected visual queue ( circle under object )
                     var selectionVisualization = Instantiate(selectionVisualizationPrefab, prefab.transform, true);

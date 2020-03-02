@@ -41,8 +41,8 @@ namespace AR.ARKit.Manipulators
 
             if (Mathf.Abs(turnAngleDelta) > 0)
             { // rotate
-                Vector3 rotationDeg = Vector3.zero;
-                rotationDeg.z = -turnAngleDelta;
+                var rotationDeg = Vector3.zero;
+                rotationDeg.y = -turnAngleDelta;
                 desiredRotation *= Quaternion.Euler(rotationDeg);
             }
 
