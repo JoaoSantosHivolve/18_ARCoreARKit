@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3471531898222115870}
   - component: {fileID: 4450281437813955242}
   - component: {fileID: 1708331478737942867}
+  - component: {fileID: 7146282048414938249}
   m_Layer: 0
   m_Name: ARKit Manipulators Prefab
   m_TagString: Untagged
@@ -45,9 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionManipulator: {fileID: 1708331478737942867}
-  translateManipulator: {fileID: 1708331478737942867}
-  rotationManipulator: {fileID: 1708331478737942867}
-  scaleManipulator: {fileID: 1708331478737942867}
+  rotationManipulator: {fileID: 7146282048414938249}
 --- !u!114 &1708331478737942867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +57,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de9070e8d800ccd41b51e6a117e546a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arKitObject: {fileID: 0}
+--- !u!114 &7146282048414938249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592958767603399410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3fedcf1b13b1945a508cb8bbace2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   arKitObject: {fileID: 0}

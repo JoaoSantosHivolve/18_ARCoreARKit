@@ -7,7 +7,7 @@ using UnityEngine.XR.ARSubsystems;
 
 namespace AR.ARKit
 {
-    public class IosObjectPlacementManipulator : MonoBehaviour
+    public class ArKitObjectPlacementManipulator : MonoBehaviour
     {
         public Camera mainCamera;
         public GameObject placedPrefab;

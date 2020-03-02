@@ -29,7 +29,6 @@ namespace AR.ARKit.Manipulators
                 }
             }
         }
-        public bool canManipulate;
 
         private void Update()
         {
@@ -40,8 +39,6 @@ namespace AR.ARKit.Manipulators
                 var ray = mainCamera.ScreenPointToRay(touch.position);
                 if (Physics.Raycast(ray, out var hit))
                 {
-                    canManipulate = hit.transform.GetComponent<ArKitObject>() != null;
-
                     if (hit.transform.GetComponent<ArKitObject>())
                     {
                         Select(hit.transform.GetComponent<ArKitObject>());
@@ -50,19 +47,8 @@ namespace AR.ARKit.Manipulators
                 else
                 {
                     Deselect();
-                    canManipulate = false;
                 }
             }
-
-            if (canManipulate)
-            {
-                // Object one finger moving
-                if (touch.phase == TouchPhase.Moved && Input.touchCount == 1)
-                {
-                    // Check if finger position is on plane
-                }
-            }
-            
         }
 
         private void Select(ArKitObject newObject)

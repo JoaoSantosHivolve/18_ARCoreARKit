@@ -32,5 +32,11 @@ namespace AR.ARKit.Manipulators
         {
             SelectionVisualization.SetActive(false);
         }
+
+        public override void UpdateManipulator()
+        {
+            // No updates on selection manipulator.
+            // Is selected is controller in the ArKitManipulatorController.
+        }
     }
 }

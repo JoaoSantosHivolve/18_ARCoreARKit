@@ -52,10 +52,6 @@ namespace AR.ARCore
             return false;
         }
 
-        /// <summary>
-        /// Function called when the manipulation is ended.
-        /// </summary>
-        /// <param name="gesture">The current gesture.</param>
         protected override void OnEndManipulation(TapGesture gesture)
         {
             if (gesture.WasCancelled)

@@ -10,14 +10,14 @@ namespace AR.ARKit.Manipulators
             {
                 selectionManipulator.arKitObject = value;
                 //translateManipulator.arKitObject = value;
-                //rotationManipulator.arKitObject = value;
+                rotationManipulator.arKitObject = value;
                 //scaleManipulator.arKitObject = value;
             }
         }
 
         public ArKitSelectionManipulator selectionManipulator;
         //public ArKitManipulator translateManipulator;
-        //public ArKitManipulator rotationManipulator;
+        public ArKitRotationManipulator rotationManipulator;
         //public ArKitManipulator scaleManipulator;
     }
 }
