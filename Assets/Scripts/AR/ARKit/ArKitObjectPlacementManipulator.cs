@@ -30,7 +30,7 @@ namespace AR.ARKit
             if (IsPointerOverGameObject(touch.position))
                 return;
 
-            if (!Tapped(touch))
+            if (!Tapped(touch) && Input.touchCount == 1)
                 return;
 
             if (raycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
