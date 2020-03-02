@@ -19,6 +19,7 @@ namespace AR.ARKit
         public ArKitManipulatorsManager objectManipulatorsPrefab;
 
         public float time;
+        public bool usedTwoFingers;
 
         private void Update()
         {
@@ -30,7 +31,10 @@ namespace AR.ARKit
             if (IsPointerOverGameObject(touch.position))
                 return;
 
-            if (!Tapped(touch) && Input.touchCount == 1)
+            if (Input.touchCount > 1)
+                usedTwoFingers = true;
+
+            if (!Tapped(touch) || Input.touchCount != 1 || usedTwoFingers)
                 return;
 
             if (raycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
@@ -40,8 +44,8 @@ namespace AR.ARKit
                 if (placedPrefab != null)
                 {
                     // Instantiate prefab
-                    var prefab = Instantiate(placedPrefab, hitPose.position, hitPose.rotation);
-                    prefab.AddComponent<ArKitObject>();
+                    var prefab = Instantiate(placedPrefab.AddComponent<ArKitObject>(), hitPose.position, hitPose.rotation);
+                    //prefab.AddComponent<ArKitObject>();
 
                     // Instantiate object manipulators ( rotate, position, scale, ... )
                     var manipulatorsManager = Instantiate(objectManipulatorsPrefab);
@@ -49,13 +53,13 @@ namespace AR.ARKit
                     manipulatorsManager.rayCastManager = raycastManager;
                     manipulatorsManager.mainCamera = mainCamera;
                     prefab.transform.parent = manipulatorsManager.transform;
-                    prefab.GetComponent<ArKitObject>().manager = manipulatorsManager;
+                    prefab.manager = manipulatorsManager;
 
                     // Instantiate object selected visual queue ( circle under object )
                     var selectionVisualization = Instantiate(selectionVisualizationPrefab, prefab.transform, true);
                     selectionVisualization.transform.localPosition = Vector3.zero;
                     selectionVisualization.transform.localScale = prefab.transform.localScale;
-                    prefab.GetComponent<ArKitObject>().selectionVisualization = selectionVisualization;
+                    prefab.selectionVisualization = selectionVisualization;
 
                     // Set object selected
                     manipulatorController.SelectedObject = prefab.GetComponent<ArKitObject>();
@@ -73,8 +77,12 @@ namespace AR.ARKit
             if (touch.phase == TouchPhase.Began)
                 time = Time.time;
             else if (touch.phase == TouchPhase.Ended)
-                if (Time.time - time < 1.0f)
+            {
+                usedTwoFingers = false;
+
+                if (Time.time - time < 0.25f)
                     return true;
+            }
 
             return false;
         }

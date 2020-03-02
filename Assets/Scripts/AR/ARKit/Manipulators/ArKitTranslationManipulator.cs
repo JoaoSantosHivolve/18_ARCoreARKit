@@ -48,7 +48,7 @@ namespace AR.ARKit.Manipulators
                     break;
             }
         }
-
+      
         private static bool IsPointerOverUiElement(Vector2 position)
         {
             var eventData = new PointerEventData(EventSystem.current);

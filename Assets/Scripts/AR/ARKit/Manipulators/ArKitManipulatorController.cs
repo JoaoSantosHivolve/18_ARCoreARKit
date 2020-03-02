@@ -29,28 +29,38 @@ namespace AR.ARKit.Manipulators
                 }
             }
         }
+        private float m_Time;
 
         private void Update()
         {
-            // Object Tap Detection
             var touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+
+            if (!Tapped(touch))
+                return;
+
+            var ray = mainCamera.ScreenPointToRay(touch.position);
+            if (Physics.Raycast(ray, out var hit))
             {
-                var ray = mainCamera.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray, out var hit))
+                if (hit.transform.GetComponent<ArKitObject>())
                 {
-                    if (hit.transform.GetComponent<ArKitObject>())
-                    {
-                        Select(hit.transform.GetComponent<ArKitObject>());
-                    }
-                }
-                else
-                {
-                    Deselect();
+                    Select(hit.transform.GetComponent<ArKitObject>());
                 }
             }
+            else
+            {
+                Deselect();
+            }
         }
+        private bool Tapped(Touch touch)
+        {
+            if (touch.phase == TouchPhase.Began)
+                m_Time = Time.time;
+            else if (touch.phase == TouchPhase.Ended)
+                if (Time.time - m_Time < 0.25f)
+                    return true;
 
+            return false;
+        }
         private void Select(ArKitObject newObject)
         {
             if (SelectedObject == newObject)
