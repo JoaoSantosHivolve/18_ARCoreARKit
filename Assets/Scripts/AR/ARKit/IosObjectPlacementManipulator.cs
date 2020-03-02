@@ -13,6 +13,7 @@ namespace AR.ARKit
         public GameObject placedPrefab;
 
         public ARRaycastManager raycastManager;
+        public ArKitManipulatorController manipulatorController;
 
         public GameObject selectionVisualizationPrefab;
         public ArKitManipulatorsManager objectManipulatorsPrefab;
@@ -54,6 +55,9 @@ namespace AR.ARKit
                     selectionVisualization.transform.localPosition = Vector3.zero;
                     selectionVisualization.transform.localScale = prefab.transform.localScale;
                     prefab.GetComponent<ArKitObject>().selectionVisualization = selectionVisualization;
+
+                    // Set object selected
+                    manipulatorController.SelectedObject = prefab.GetComponent<ArKitObject>();
 
                     // Instantiated object order
                     // - Manipulators

@@ -23,7 +23,9 @@ namespace AR.ARKit.Manipulators
                 {
                     m_SelectedObject.IsSelected = false;
                     m_SelectedObject = value;
-                    m_SelectedObject.IsSelected = true;
+
+                    if(value != null)
+                        m_SelectedObject.IsSelected = true;
                 }
             }
         }

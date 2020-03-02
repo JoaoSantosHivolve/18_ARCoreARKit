@@ -161,7 +161,7 @@ RectTransform:
   - {fileID: 518573350}
   - {fileID: 1113754011}
   m_Father: {fileID: 8246433083281331991}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -927,7 +927,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8246433083281331991}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1183660133
 MonoBehaviour:
@@ -1234,55 +1234,11 @@ Transform:
   - {fileID: 4902017616512973834}
   - {fileID: 3081773156160486656}
   - {fileID: 2000184180655939269}
-  - {fileID: 4500727706182221035}
   - {fileID: 443824529}
   - {fileID: 1183660132}
   m_Father: {fileID: 3527871969183874583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3095160114286513702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4500727706182221035}
-  - component: {fileID: 3962425613995230621}
-  m_Layer: 0
-  m_Name: ARKIT RaycastManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4500727706182221035
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3095160114286513702}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8246433083281331991}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3962425613995230621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3095160114286513702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4166962597969217005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,7 +1376,8 @@ MonoBehaviour:
   mainCamera: {fileID: 6295769464456448169}
   placedPrefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b,
     type: 3}
-  raycastManager: {fileID: 3962425613995230621}
+  raycastManager: {fileID: 948078804023074198}
+  manipulatorController: {fileID: 1183660133}
   selectionVisualizationPrefab: {fileID: 1825987397968370, guid: 7ab3787b240931a498e365a296b6f9ed,
     type: 3}
   objectManipulatorsPrefab: {fileID: 4450281437813955242, guid: 6c0ceb05901e6c84aab775f043dcebce,
@@ -1480,8 +1437,9 @@ GameObject:
   - component: {fileID: 2167875078668868641}
   - component: {fileID: 7130103818291394886}
   - component: {fileID: 7275688072188542122}
+  - component: {fileID: 948078804023074198}
   m_Layer: 0
-  m_Name: ARKIT Session Origin & Plane Generator
+  m_Name: ARKIT Session Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1544,6 +1502,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PointCloudPrefab: {fileID: 1854016325464908, guid: 0d4f49e744bffd14eb527ba76c9bba12,
     type: 3}
+--- !u!114 &948078804023074198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218774531034320275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7304967526955463109
 GameObject:
   m_ObjectHideFlags: 0
