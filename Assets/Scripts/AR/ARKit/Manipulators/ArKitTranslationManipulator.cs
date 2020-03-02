@@ -10,7 +10,7 @@ namespace AR.ARKit.Manipulators
     {
         private static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
 
-        private bool canMove;
+        private bool m_CanMove;
 
         public override void UpdateManipulator()
         {
@@ -18,34 +18,37 @@ namespace AR.ARKit.Manipulators
                 return;
 
             var touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            switch (touch.phase)
             {
-                if (IsPointerOverUiElement(touch.position))
-                {
-                    canMove = false;
+                case TouchPhase.Began when IsPointerOverUiElement(touch.position):
+                    m_CanMove = false;
                     return;
-                }
-
-                var ray = manager.mainCamera.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray, out var hit))
-                    canMove = arKitObject == hit.transform.GetComponent<ArKitObject>();
-                else
-                    canMove = false;
-            }
-            else if (touch.phase == TouchPhase.Moved && canMove)
-            {
-                if (manager.rayCastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
+                case TouchPhase.Began:
                 {
-                    var hitPose = s_Hits[0].pose;
-
-                    arKitObject.transform.position = hitPose.position;
+                    var ray = manager.mainCamera.ScreenPointToRay(touch.position);
+                    if (Physics.Raycast(ray, out var hit))
+                        m_CanMove = arKitObject == hit.transform.GetComponent<ArKitObject>();
+                    else
+                        m_CanMove = false;
+                    break;
                 }
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                canMove = false;
+                case TouchPhase.Moved when m_CanMove:
+                {
+                    if (manager.rayCastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
+                    {
+                        var hitPose = s_Hits[0].pose;
+
+                        arKitObject.transform.position = hitPose.position;
+                    }
+
+                    break;
+                }
+                case TouchPhase.Ended:
+                    m_CanMove = false;
+                    break;
             }
         }
+
         private static bool IsPointerOverUiElement(Vector2 position)
         {
             var eventData = new PointerEventData(EventSystem.current);

@@ -18,20 +18,19 @@ namespace AR.ARKit
         public GameObject selectionVisualizationPrefab;
         public ArKitManipulatorsManager objectManipulatorsPrefab;
 
+        public float time;
+
         private void Update()
         {
             var touch = Input.GetTouch(0);
-
-            if (touch.phase != TouchPhase.Began || Input.touchCount != 1)
-                return;
-
-            //if (!TryGetTouchPosition(out var touchPosition))
-            //    return;
 
             if (IsPointerOverUiElement(touch.position))
                 return;
 
             if (IsPointerOverGameObject(touch.position))
+                return;
+
+            if (!Tapped(touch))
                 return;
 
             if (raycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
@@ -46,11 +45,11 @@ namespace AR.ARKit
 
                     // Instantiate object manipulators ( rotate, position, scale, ... )
                     var manipulatorsManager = Instantiate(objectManipulatorsPrefab);
-                    prefab.transform.parent = manipulatorsManager.transform;
-                    prefab.GetComponent<ArKitObject>().manager = manipulatorsManager;
                     manipulatorsManager.ArKitObject = prefab.GetComponent<ArKitObject>();
                     manipulatorsManager.rayCastManager = raycastManager;
                     manipulatorsManager.mainCamera = mainCamera;
+                    prefab.transform.parent = manipulatorsManager.transform;
+                    prefab.GetComponent<ArKitObject>().manager = manipulatorsManager;
 
                     // Instantiate object selected visual queue ( circle under object )
                     var selectionVisualization = Instantiate(selectionVisualizationPrefab, prefab.transform, true);
@@ -69,6 +68,16 @@ namespace AR.ARKit
             }
         }
 
+        private bool Tapped(Touch touch)
+        {
+            if (touch.phase == TouchPhase.Began)
+                time = Time.time;
+            else if (touch.phase == TouchPhase.Ended)
+                if (Time.time - time < 1.0f)
+                    return true;
+
+            return false;
+        }
         private static bool TryGetTouchPosition(out Vector2 touchPosition)
         {
 #if UNITY_EDITOR

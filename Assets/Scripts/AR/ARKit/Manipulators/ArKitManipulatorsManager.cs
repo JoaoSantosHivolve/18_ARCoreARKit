@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 namespace AR.ARKit.Manipulators
 {
     public class ArKitManipulatorsManager : MonoBehaviour
     {
+        [Header("Elements set on ArKitObjectPlacementManipulator")]
         public ARRaycastManager rayCastManager;
         public Camera mainCamera;
         public ArKitObject ArKitObject
@@ -19,16 +19,18 @@ namespace AR.ARKit.Manipulators
             }
         }
 
+       
+        [Header("Manipulators")]
+        public ArKitSelectionManipulator selectionManipulator;
+        public ArKitTranslationManipulator translationManipulator;
+        public ArKitRotationManipulator rotationManipulator;
+        //public ArKitManipulator scaleManipulator;
+
         private void Awake()
         {
             selectionManipulator.manager = this;
             rotationManipulator.manager = this;
             translationManipulator.manager = this;
         }
-
-        public ArKitSelectionManipulator selectionManipulator;
-        public ArKitTranslationManipulator translationManipulator;
-        public ArKitRotationManipulator rotationManipulator;
-        //public ArKitManipulator scaleManipulator;
     }
 }
