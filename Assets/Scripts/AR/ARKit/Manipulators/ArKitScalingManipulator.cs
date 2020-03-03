@@ -4,12 +4,12 @@ namespace AR.ARKit.Manipulators
 {
     public class ArKitScalingManipulator : ArKitManipulator
     {
-        private const float PinchRatio = 0.1f;
+        private const float PinchRatio = 0.05f;
         private const float MinPinchDistance = 0;
 
-        [Range(1.00f,5.00f)]
+        [Range(0.00f,1.00f)]
         public float maxSize;
-        [Range(-1.00f,0.99f)]
+        [Range(-1.00f,-0.99f)]
         public float minSize;
 
         private float m_PinchDistanceDelta;
