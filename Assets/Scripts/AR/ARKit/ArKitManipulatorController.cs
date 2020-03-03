@@ -33,6 +33,9 @@ namespace AR.ARKit
 
         private void Update()
         {
+            if (Input.touchCount == 0)
+                return;
+
             var touch = Input.GetTouch(0);
 
             if (!Tapped(touch))
