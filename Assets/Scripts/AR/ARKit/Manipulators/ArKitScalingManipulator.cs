@@ -4,12 +4,12 @@ namespace AR.ARKit.Manipulators
 {
     public class ArKitScalingManipulator : ArKitManipulator
     {
-        private const float PinchRatio = 0.05f;
-        private const float MinPinchDistance = 0;
+        private const float PinchRatio = 0.5f;
+        private const float MinPinchDistance = 1;
 
-        [Range(0.00f,1.00f)]
+        [Range(0.00f,2.00f)]
         public float maxSize;
-        [Range(-1.00f,-0.99f)]
+        [Range(-2.00f,-0.01f)]
         public float minSize;
 
         private float m_PinchDistanceDelta;
@@ -59,12 +59,12 @@ namespace AR.ARKit.Manipulators
 
                 var prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition, touch2.position - touch2.deltaPosition);
 
-                PinchDistanceDelta = m_PinchDistance - prevDistance;
+                var distance = m_PinchDistance - prevDistance;
 
                 // ... if it's greater than a minimum threshold, it's a pinch!
-                if (Mathf.Abs(PinchDistanceDelta) > MinPinchDistance)
+                if (Mathf.Abs(distance) > MinPinchDistance)
                 {
-                    PinchDistanceDelta *= PinchRatio;
+                    PinchDistanceDelta = distance;
                 }
             }
         }
