@@ -5,6 +5,8 @@ namespace AR.ARKit.Manipulators
     public class ArKitSelectionManipulator : ArKitManipulator
     {
         private bool m_IsSelected;
+        private static readonly int Selected = Animator.StringToHash("Selected");
+
         public bool IsSelected
         {
             get => m_IsSelected;
@@ -27,10 +29,12 @@ namespace AR.ARKit.Manipulators
         private void Select()
         {
             SelectionVisualization.SetActive(true);
+            arKitObject.animator.SetBool(Selected, true);
         }
         private void Deselect()
         {
             SelectionVisualization.SetActive(false);
+            arKitObject.animator.SetBool(Selected, false);
         }
 
         public override void UpdateManipulator()

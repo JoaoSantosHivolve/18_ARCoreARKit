@@ -4,31 +4,11 @@ namespace AR.ARKit.Manipulators
 {
     public class ArKitRotationManipulator : ArKitManipulator
     {
-        const float pinchTurnRatio = Mathf.PI / 2;
-        const float minTurnAngle = 0;
+        private const float PinchTurnRatio = Mathf.PI / 2;
+        private const float MinTurnAngle = 0;
 
-        const float pinchRatio = 1;
-        const float minPinchDistance = 0;
-
-        const float panRatio = 1;
-        const float minPanDistance = 0;
-
-        /// <summary>
-        ///   The delta of the angle between two touch points
-        /// </summary>
-        public static float turnAngleDelta;
-        /// <summary>
-        ///   The angle between two touch points
-        /// </summary>
-        public static float turnAngle;
-        /// <summary>
-        ///   The delta of the distance between two touch points that were distancing from each other
-        /// </summary>
-        public static float pinchDistanceDelta;
-        /// <summary>
-        ///   The distance between two touch points that were distancing from each other
-        /// </summary>
-        public static float pinchDistance;
+        private static float s_TurnAngleDelta;
+        private static float s_TurnAngle;
 
         private void LateUpdate()
         {
@@ -39,10 +19,10 @@ namespace AR.ARKit.Manipulators
 
             Calculate();
 
-            if (Mathf.Abs(turnAngleDelta) > 0)
+            if (Mathf.Abs(s_TurnAngleDelta) > 0)
             { // rotate
                 var rotationDeg = Vector3.zero;
-                rotationDeg.y = -turnAngleDelta;
+                rotationDeg.y = -s_TurnAngleDelta;
                 desiredRotation *= Quaternion.Euler(rotationDeg);
             }
 
@@ -51,8 +31,7 @@ namespace AR.ARKit.Manipulators
 
         private static void Calculate()
         {
-            pinchDistance = pinchDistanceDelta = 0;
-            turnAngle = turnAngleDelta = 0;
+            s_TurnAngle = s_TurnAngleDelta = 0;
 
             // if two fingers are touching the screen at the same time ...
             if (Input.touchCount == 2)
@@ -63,36 +42,20 @@ namespace AR.ARKit.Manipulators
                 // ... if at least one of them moved ...
                 if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
                 {
-                    // ... check the delta distance between them ...
-                    pinchDistance = Vector2.Distance(touch1.position, touch2.position);
-                    float prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition,
-                        touch2.position - touch2.deltaPosition);
-                    pinchDistanceDelta = pinchDistance - prevDistance;
-
-                    // ... if it's greater than a minimum threshold, it's a pinch!
-                    if (Mathf.Abs(pinchDistanceDelta) > minPinchDistance)
-                    {
-                        pinchDistanceDelta *= pinchRatio;
-                    }
-                    else
-                    {
-                        pinchDistance = pinchDistanceDelta = 0;
-                    }
-
                     // ... or check the delta angle between them ...
-                    turnAngle = Angle(touch1.position, touch2.position);
+                    s_TurnAngle = Angle(touch1.position, touch2.position);
                     float prevTurn = Angle(touch1.position - touch1.deltaPosition,
                         touch2.position - touch2.deltaPosition);
-                    turnAngleDelta = Mathf.DeltaAngle(prevTurn, turnAngle);
+                    s_TurnAngleDelta = Mathf.DeltaAngle(prevTurn, s_TurnAngle);
 
                     // ... if it's greater than a minimum threshold, it's a turn!
-                    if (Mathf.Abs(turnAngleDelta) > minTurnAngle)
+                    if (Mathf.Abs(s_TurnAngleDelta) > MinTurnAngle)
                     {
-                        turnAngleDelta *= pinchTurnRatio;
+                        s_TurnAngleDelta *= PinchTurnRatio;
                     }
                     else
                     {
-                        turnAngle = turnAngleDelta = 0;
+                        s_TurnAngle = s_TurnAngleDelta = 0;
                     }
                 }
             }

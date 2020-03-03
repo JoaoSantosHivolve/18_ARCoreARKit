@@ -942,7 +942,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 6295769464456448169}
-  canManipulate: 0
 --- !u!1 &1339921301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,10 +1373,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 6295769464456448169}
-  placedPrefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b,
-    type: 3}
   raycastManager: {fileID: 948078804023074198}
   manipulatorController: {fileID: 1183660133}
+  runtimeAnimatorController: {fileID: 9100000, guid: 4e1ae249321386045b2974b3395d2f3a,
+    type: 2}
+  placedPrefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b,
+    type: 3}
   selectionVisualizationPrefab: {fileID: 1825987397968370, guid: 7ab3787b240931a498e365a296b6f9ed,
     type: 3}
   objectManipulatorsPrefab: {fileID: 4450281437813955242, guid: 6c0ceb05901e6c84aab775f043dcebce,

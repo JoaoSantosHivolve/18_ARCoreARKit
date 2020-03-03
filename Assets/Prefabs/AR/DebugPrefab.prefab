@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4293976417129340}
   - component: {fileID: 6750648375208808213}
   m_Layer: 0
-  m_Name: ARCorePawn
+  m_Name: DebugPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 33838550970385256}
   - component: {fileID: 23680308709892314}
   m_Layer: 0
-  m_Name: ARCore_pawn
+  m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

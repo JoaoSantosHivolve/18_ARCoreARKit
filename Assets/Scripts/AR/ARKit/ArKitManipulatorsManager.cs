@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using AR.ARKit.Manipulators;
+using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-namespace AR.ARKit.Manipulators
+namespace AR.ARKit
 {
     public class ArKitManipulatorsManager : MonoBehaviour
     {
@@ -15,22 +16,22 @@ namespace AR.ARKit.Manipulators
                 selectionManipulator.arKitObject = value;
                 translationManipulator.arKitObject = value;
                 rotationManipulator.arKitObject = value;
-                //scaleManipulator.arKitObject = value;
+                scaleManipulator.arKitObject = value;
             }
         }
-
        
         [Header("Manipulators")]
         public ArKitSelectionManipulator selectionManipulator;
         public ArKitTranslationManipulator translationManipulator;
         public ArKitRotationManipulator rotationManipulator;
-        //public ArKitManipulator scaleManipulator;
+        public ArKitScalingManipulator scaleManipulator;
 
         private void Awake()
         {
             selectionManipulator.manager = this;
             rotationManipulator.manager = this;
             translationManipulator.manager = this;
+            scaleManipulator.manager = this;
         }
     }
 }

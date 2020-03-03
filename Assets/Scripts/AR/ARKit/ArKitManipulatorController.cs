@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AR.ARKit.Manipulators
+namespace AR.ARKit
 {
     public class ArKitManipulatorController : MonoBehaviour
     {
@@ -45,6 +45,8 @@ namespace AR.ARKit.Manipulators
                 {
                     Select(hit.transform.GetComponent<ArKitObject>());
                 }
+                else
+                    Deselect();
             }
             else
             {

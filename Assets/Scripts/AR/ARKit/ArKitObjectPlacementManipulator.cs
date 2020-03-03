@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AR.ARKit.Manipulators;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
@@ -10,16 +9,19 @@ namespace AR.ARKit
     public class ArKitObjectPlacementManipulator : MonoBehaviour
     {
         public Camera mainCamera;
-        public GameObject placedPrefab;
-
         public ARRaycastManager raycastManager;
         public ArKitManipulatorController manipulatorController;
 
+        [Header("Instantiated object animator")]
+        public RuntimeAnimatorController runtimeAnimatorController;
+        
+        [Header("Prefabs to Instantiate")]
+        public GameObject placedPrefab;
         public GameObject selectionVisualizationPrefab;
         public ArKitManipulatorsManager objectManipulatorsPrefab;
 
-        public float time;
-        public bool usedTwoFingers;
+        private float m_Time;
+        private bool m_UsedTwoFingers;
 
         private void Update()
         {
@@ -32,9 +34,9 @@ namespace AR.ARKit
                 return;
 
             if (Input.touchCount > 1)
-                usedTwoFingers = true;
+                m_UsedTwoFingers = true;
 
-            if (!Tapped(touch) || Input.touchCount != 1 || usedTwoFingers)
+            if (!Tapped(touch) || Input.touchCount != 1 || m_UsedTwoFingers)
                 return;
 
             if (raycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
@@ -44,22 +46,23 @@ namespace AR.ARKit
                 if (placedPrefab != null)
                 {
                     // Instantiate prefab
-                    var prefab = Instantiate(placedPrefab.AddComponent<ArKitObject>(), hitPose.position, hitPose.rotation);
-                    //prefab.AddComponent<ArKitObject>();
+                    var prefab = Instantiate(placedPrefab, hitPose.position, hitPose.rotation);
+                    prefab.AddComponent<ArKitObject>();
 
                     // Instantiate object manipulators ( rotate, position, scale, ... )
                     var manipulatorsManager = Instantiate(objectManipulatorsPrefab);
                     manipulatorsManager.ArKitObject = prefab.GetComponent<ArKitObject>();
                     manipulatorsManager.rayCastManager = raycastManager;
                     manipulatorsManager.mainCamera = mainCamera;
-                    prefab.transform.parent = manipulatorsManager.transform;
-                    prefab.manager = manipulatorsManager;
 
                     // Instantiate object selected visual queue ( circle under object )
                     var selectionVisualization = Instantiate(selectionVisualizationPrefab, prefab.transform, true);
                     selectionVisualization.transform.localPosition = Vector3.zero;
                     selectionVisualization.transform.localScale = prefab.transform.localScale;
-                    prefab.selectionVisualization = selectionVisualization;
+
+                    // Init prefabs components
+                    prefab.transform.parent = manipulatorsManager.transform;
+                    prefab.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
 
                     // Set object selected
                     manipulatorController.SelectedObject = prefab.GetComponent<ArKitObject>();
@@ -75,36 +78,18 @@ namespace AR.ARKit
         private bool Tapped(Touch touch)
         {
             if (touch.phase == TouchPhase.Began)
-                time = Time.time;
+                m_Time = Time.time;
             else if (touch.phase == TouchPhase.Ended)
             {
-                usedTwoFingers = false;
+                m_UsedTwoFingers = false;
 
-                if (Time.time - time < 0.25f)
+                if (Time.time - m_Time < 0.25f)
                     return true;
             }
 
             return false;
         }
-        private static bool TryGetTouchPosition(out Vector2 touchPosition)
-        {
-#if UNITY_EDITOR
-            if (Input.GetMouseButton(0))
-            {
-                var mousePosition = Input.mousePosition;
-                touchPosition = new Vector2(mousePosition.x, mousePosition.y);
-                return true;
-            }
-#else
-        if (Input.touchCount > 0)
-        {
-            touchPosition = Input.GetTouch(0).position;
-            return true;
-        }
-#endif
-            touchPosition = default;
-            return false;
-        }
+      
         private static bool IsPointerOverUiElement(Vector2 position)
         {
             var eventData = new PointerEventData(EventSystem.current);
