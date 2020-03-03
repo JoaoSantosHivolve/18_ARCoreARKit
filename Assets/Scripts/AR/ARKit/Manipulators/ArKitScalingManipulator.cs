@@ -15,22 +15,13 @@ namespace AR.ARKit.Manipulators
             if (!arKitObject.IsSelected)
                 return;
 
-            float pinchAmount = 0;
-
             Calculate();
 
-            if (Mathf.Abs(s_PinchDistanceDelta) > 0)
-            {
-                pinchAmount = s_PinchDistanceDelta;
-            }
-
-            arKitObject.transform.localScale = Vector3.one * pinchAmount;
+            arKitObject.transform.localScale = Vector3.one * s_PinchDistanceDelta;
         }
 
         private static void Calculate()
         {
-            s_PinchDistance = s_PinchDistanceDelta = 0;
-
             // if two fingers are touching the screen at the same time ...
             if (Input.touchCount == 2)
             {

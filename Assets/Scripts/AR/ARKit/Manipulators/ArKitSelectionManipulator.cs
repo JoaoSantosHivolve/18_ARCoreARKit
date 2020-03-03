@@ -32,12 +32,12 @@ namespace AR.ARKit.Manipulators
         private void Select()
         {
             SelectionVisualization.SetActive(true);
-            //Animator.SetBool(Selected, true);
+            Animator.SetBool(Selected, true);
         }
         private void Deselect()
         {
             SelectionVisualization.SetActive(false);
-            //Animator.SetBool(Selected, false);
+            Animator.SetBool(Selected, false);
         }
 
         public override void UpdateManipulator()
