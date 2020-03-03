@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4029415234495576193}
   - component: {fileID: -7349354337189322169}
   m_Layer: 0
-  m_Name: ARKit Manipulators Prefab
+  m_Name: ARKit Manipulators
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,3 +109,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arKitObject: {fileID: 0}
   manager: {fileID: 0}
+  maxSize: 2
+  minSize: 0.5

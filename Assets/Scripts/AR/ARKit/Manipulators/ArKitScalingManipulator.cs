@@ -27,7 +27,7 @@ namespace AR.ARKit.Manipulators
                     m_PinchDistanceDelta = value;
             }
         }
-        private static float s_PinchDistance;
+        private float m_PinchDistance;
 
         public override void UpdateManipulator()
         {
@@ -46,28 +46,26 @@ namespace AR.ARKit.Manipulators
 
         private void Calculate()
         {
-            // if two fingers are touching the screen at the same time ...
-            if (Input.touchCount == 2)
+            if (Input.touchCount != 2) 
+                return;
+
+            var touch1 = Input.touches[0];
+            var touch2 = Input.touches[1];
+
+            // ... if at least one of them moved ...
+            if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
             {
-                Touch touch1 = Input.touches[0];
-                Touch touch2 = Input.touches[1];
+                // ... check the delta distance between them ...
+                m_PinchDistance = Vector2.Distance(touch1.position, touch2.position);
 
-                // ... if at least one of them moved ...
-                if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+                var prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition, touch2.position - touch2.deltaPosition);
+
+                PinchDistanceDelta = m_PinchDistance - prevDistance;
+
+                // ... if it's greater than a minimum threshold, it's a pinch!
+                if (Mathf.Abs(PinchDistanceDelta) > MinPinchDistance)
                 {
-                    // ... check the delta distance between them ...
-                    s_PinchDistance = Vector2.Distance(touch1.position, touch2.position);
-
-                    float prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition,
-                        touch2.position - touch2.deltaPosition);
-
-                    PinchDistanceDelta = s_PinchDistance - prevDistance;
-
-                    // ... if it's greater than a minimum threshold, it's a pinch!
-                    if (Mathf.Abs(PinchDistanceDelta) > MinPinchDistance)
-                    {
-                        PinchDistanceDelta *= PinchRatio;
-                    }
+                    PinchDistanceDelta *= PinchRatio;
                 }
             }
         }
