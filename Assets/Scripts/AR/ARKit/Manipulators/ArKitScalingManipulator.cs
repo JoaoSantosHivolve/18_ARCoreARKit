@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace AR.ARKit.Manipulators
 {
@@ -7,20 +8,43 @@ namespace AR.ARKit.Manipulators
         private const float PinchRatio = 1;
         private const float MinPinchDistance = 0;
 
-        private static float s_PinchDistanceDelta;
+        [Range(1.0f,5.0f)]
+        public float maxSize;
+        [Range(0.5f,1.0f)]
+        public float minSize;
+
+        private float m_PinchDistanceDelta;
+        private float PinchDistanceDelta
+        {
+            get => m_PinchDistanceDelta;
+            set
+            {
+                if (value >= maxSize)
+                    m_PinchDistanceDelta = maxSize;
+                else if (value <= minSize)
+                    m_PinchDistanceDelta = minSize;
+                else
+                    m_PinchDistanceDelta = value;
+            }
+        }
         private static float s_PinchDistance;
 
         public override void UpdateManipulator()
+        {
+            // Uses LateUpdate instead.
+        }
+
+        private void LateUpdate()
         {
             if (!arKitObject.IsSelected)
                 return;
 
             Calculate();
 
-            arKitObject.transform.localScale = Vector3.one + (Vector3.one * s_PinchDistanceDelta);
+            arKitObject.transform.localScale = Vector3.one + (Vector3.one * PinchDistanceDelta);
         }
 
-        private static void Calculate()
+        private void Calculate()
         {
             // if two fingers are touching the screen at the same time ...
             if (Input.touchCount == 2)
@@ -37,12 +61,12 @@ namespace AR.ARKit.Manipulators
                     float prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition,
                         touch2.position - touch2.deltaPosition);
 
-                    s_PinchDistanceDelta = s_PinchDistance - prevDistance;
+                    PinchDistanceDelta = s_PinchDistance - prevDistance;
 
                     // ... if it's greater than a minimum threshold, it's a pinch!
-                    if (Mathf.Abs(s_PinchDistanceDelta) > MinPinchDistance)
+                    if (Mathf.Abs(PinchDistanceDelta) > MinPinchDistance)
                     {
-                        s_PinchDistanceDelta *= PinchRatio;
+                        PinchDistanceDelta *= PinchRatio;
                     }
                 }
             }
