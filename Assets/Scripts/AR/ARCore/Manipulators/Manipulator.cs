@@ -27,8 +27,10 @@ namespace GoogleARCore.Examples.ObjectManipulation
     /// </summary>
     public abstract class Manipulator : MonoBehaviour
     {
-        private bool m_IsManipulating;
+        // Placed object that is child of the manipulator
+        [HideInInspector] public GameObject placedObject;
 
+        private bool m_IsManipulating;
         private GameObject m_SelectedObject;
 
         /// <summary>

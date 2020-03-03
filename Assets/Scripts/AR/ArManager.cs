@@ -1,4 +1,5 @@
 ﻿using AR.ARCore;
+using AR.ARKit;
 using Assets.Scripts.Common;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace AR
 
         [Header("Object placement components")]
         public ArCoreObjectPlacementManipulator arCorePlacementManipulator;
+        public ArKitObjectPlacementManipulator arKitPlacementManipulator;
 
         protected override void Awake()
         {
@@ -28,10 +30,9 @@ namespace AR
         public void SetFloorScanningObject(GameObject prefab)
         {
 #if UNITY_ANDROID
-            arCorePlacementManipulator.prefab = prefab;
+            arCorePlacementManipulator.placedPrefab = prefab;
 #elif UNITY_IOS
-        arKitSection.SetActive(true);
-        arCoreSection.SetActive(false);
+            arKitPlacementManipulator.placedPrefab = prefab;
 #endif
         }
 

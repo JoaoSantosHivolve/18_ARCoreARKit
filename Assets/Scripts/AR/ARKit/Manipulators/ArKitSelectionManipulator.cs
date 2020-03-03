@@ -25,16 +25,19 @@ namespace AR.ARKit.Manipulators
             }
         }
         private GameObject SelectionVisualization => arKitObject.selectionVisualization;
+        private Animator Animator => arKitObject.animator;
+
+        // TODO: CONTROL SELECTION VISUALIZATION SIZE BASED ON SCALE MANIPULATOR
 
         private void Select()
         {
             SelectionVisualization.SetActive(true);
-            arKitObject.animator.SetBool(Selected, true);
+            //Animator.SetBool(Selected, true);
         }
         private void Deselect()
         {
             SelectionVisualization.SetActive(false);
-            arKitObject.animator.SetBool(Selected, false);
+            //Animator.SetBool(Selected, false);
         }
 
         public override void UpdateManipulator()

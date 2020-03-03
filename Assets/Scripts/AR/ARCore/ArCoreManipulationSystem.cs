@@ -111,9 +111,6 @@ namespace GoogleARCore.Examples.ObjectManipulation
             DontDestroyOnLoad(gameObject);
         }
 
-        /// <summary>
-        /// The Unity Update() method.
-        /// </summary>
         public void Update()
         {
             DragGestureRecognizer.Update();

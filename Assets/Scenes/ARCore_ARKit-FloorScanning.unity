@@ -569,55 +569,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 116046424, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 443824528, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 518573350, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 147.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 575716342, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 148.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 785012183, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 836715423, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 995210331, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -148.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 995210331, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 173
-      objectReference: {fileID: 0}
-    - target: {fileID: 1113754011, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 147.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1113754011, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 171.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1339921303, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2667448986062212803, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3527871969183874583, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
         type: 3}
       propertyPath: m_LocalPosition.x

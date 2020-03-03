@@ -23,6 +23,7 @@ using GoogleARCore;
 using GoogleARCore.Examples.ObjectManipulation;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace AR.ARCore
 {
@@ -33,9 +34,12 @@ namespace AR.ARCore
     {
         public Camera firstPersonCamera;
 
-        public GameObject placedPrefab;
-        public GameObject ManipulatorPrefab;
+        [Header("Instantiated object animator")]
+        public RuntimeAnimatorController runtimeAnimatorController;
 
+        [Header("Prefabs to Instantiate")]
+        public GameObject placedPrefab;
+        public GameObject manipulatorPrefab;
 
         private void Awake()
         {
@@ -86,14 +90,17 @@ namespace AR.ARCore
                 else
                 {
                     // Instantiate game object at the hit pose.
-                    var gameObject = Instantiate(placedPrefab, hit.Pose.position, hit.Pose.rotation);
+                    var prefab = Instantiate(placedPrefab, hit.Pose.position, hit.Pose.rotation);
+
+                    // Add object animator
+                    prefab.AddComponent<Animator>();
+                    prefab.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
 
                     // Instantiate manipulator.
-                    var manipulator =
-                        Instantiate(ManipulatorPrefab, hit.Pose.position, hit.Pose.rotation);
+                    var manipulator = Instantiate(manipulatorPrefab, hit.Pose.position, hit.Pose.rotation);
 
                     // Make game object a child of the manipulator.
-                    gameObject.transform.parent = manipulator.transform;
+                    prefab.transform.parent = manipulator.transform;
 
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of
                     // the physical world evolves.
@@ -104,6 +111,9 @@ namespace AR.ARCore
 
                     // Select the placed object.
                     manipulator.GetComponent<Manipulator>().Select();
+
+                    // Set manipulator attached object
+                    manipulator.GetComponent<Manipulator>().placedObject = prefab;
                 }
             }
         }

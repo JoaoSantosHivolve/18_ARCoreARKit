@@ -18,21 +18,23 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using UnityEngine.Serialization;
+
 namespace GoogleARCore.Examples.ObjectManipulation
 {
     using UnityEngine;
 
     /// <summary>
     /// Controls the selection of an object through Tap gesture.
+    /// Updates objects animator
     /// </summary>
     public class SelectionManipulator : Manipulator
     {
-        /// <summary>
-        /// The visualization game object that will become active when the object is selected.
-        /// </summary>
-        public GameObject SelectionVisualization;
+        public GameObject selectionVisualization;
+        private Animator Animator => placedObject.GetComponent<Animator>();
 
         private float m_ScaledElevation;
+        private static readonly int Selected = Animator.StringToHash("Selected");
 
         /// <summary>
         /// Should be called when the object elevation changes, to make sure that the Selection
@@ -43,9 +45,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
         public void OnElevationChanged(float elevation)
         {
             m_ScaledElevation = elevation * transform.localScale.y;
-            SelectionVisualization.transform.localPosition = new Vector3(0, -elevation, 0);
+            selectionVisualization.transform.localPosition = new Vector3(0, -elevation, 0);
         }
-
         /// <summary>
         /// Should be called when the object elevation changes, to make sure that the Selection
         /// Visualization remains always at the plane level. This is the elevation that the object
@@ -56,37 +57,24 @@ namespace GoogleARCore.Examples.ObjectManipulation
         public void OnElevationChangedScaled(float scaledElevation)
         {
             m_ScaledElevation = scaledElevation;
-            SelectionVisualization.transform.localPosition =
+            selectionVisualization.transform.localPosition =
                 new Vector3(0, -scaledElevation / transform.localScale.y, 0);
         }
 
-        /// <summary>
-        /// The Unity Update() method.
-        /// </summary>
         protected override void Update()
         {
             base.Update();
             if (transform.hasChanged)
             {
                 float height = -m_ScaledElevation / transform.localScale.y;
-                SelectionVisualization.transform.localPosition = new Vector3(0, height, 0);
+                selectionVisualization.transform.localPosition = new Vector3(0, height, 0);
             }
         }
 
-        /// <summary>
-        /// Returns true if the manipulation can be started for the given gesture.
-        /// </summary>
-        /// <param name="gesture">The current gesture.</param>
-        /// <returns>True if the manipulation can be started.</returns>
         protected override bool CanStartManipulationForGesture(TapGesture gesture)
         {
             return true;
         }
-
-        /// <summary>
-        /// Function called when the manipulation is ended.
-        /// </summary>
-        /// <param name="gesture">The current gesture.</param>
         protected override void OnEndManipulation(TapGesture gesture)
         {
             if (gesture.WasCancelled)
@@ -116,20 +104,15 @@ namespace GoogleARCore.Examples.ObjectManipulation
             }
         }
 
-        /// <summary>
-        /// Function called when this game object is deselected if it was the Selected Object.
-        /// </summary>
         protected override void OnSelected()
         {
-            SelectionVisualization.SetActive(true);
+            selectionVisualization.SetActive(true);
+            Animator.SetBool(Selected, true);
         }
-
-        /// <summary>
-        /// Function called when this game object is deselected if it was the Selected Object.
-        /// </summary>
         protected override void OnDeselected()
         {
-            SelectionVisualization.SetActive(false);
+            selectionVisualization.SetActive(false);
+            Animator.SetBool(Selected, false);
         }
     }
 }
