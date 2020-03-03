@@ -1,16 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AR.ARKit.Manipulators
 {
     public class ArKitScalingManipulator : ArKitManipulator
     {
-        private const float PinchRatio = 1;
+        private const float PinchRatio = 0.1f;
         private const float MinPinchDistance = 0;
 
-        [Range(1.0f,5.0f)]
+        [Range(1.00f,5.00f)]
         public float maxSize;
-        [Range(0.5f,1.0f)]
+        [Range(-1.00f,0.99f)]
         public float minSize;
 
         private float m_PinchDistanceDelta;
