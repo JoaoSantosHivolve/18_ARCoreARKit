@@ -17,7 +17,7 @@ namespace AR.ARKit.Manipulators
 
             Calculate();
 
-            arKitObject.transform.localScale = Vector3.one * s_PinchDistanceDelta;
+            arKitObject.transform.localScale = Vector3.one + (Vector3.one * s_PinchDistanceDelta);
         }
 
         private static void Calculate()
@@ -33,18 +33,16 @@ namespace AR.ARKit.Manipulators
                 {
                     // ... check the delta distance between them ...
                     s_PinchDistance = Vector2.Distance(touch1.position, touch2.position);
+
                     float prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition,
                         touch2.position - touch2.deltaPosition);
+
                     s_PinchDistanceDelta = s_PinchDistance - prevDistance;
 
                     // ... if it's greater than a minimum threshold, it's a pinch!
                     if (Mathf.Abs(s_PinchDistanceDelta) > MinPinchDistance)
                     {
                         s_PinchDistanceDelta *= PinchRatio;
-                    }
-                    else
-                    {
-                        s_PinchDistance = s_PinchDistanceDelta = 0;
                     }
                 }
             }
