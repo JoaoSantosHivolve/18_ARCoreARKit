@@ -6,7 +6,7 @@ namespace AR.ARKit.Manipulators
 {
     public class ArKitScalingManipulator : ArKitManipulator
     {
-        private const float PinchRatio = 0.05f;
+        private const float PinchRatio = 1f;
         private const float MinPinchDistance = 2.5f;
 
         [Range( 0.00f, 2.00f)]
@@ -17,24 +17,11 @@ namespace AR.ARKit.Manipulators
         private float m_MinPinchDistance = 1;
         private float m_MaxPinchDistance = 100;
 
-        private float m_PinchDistanceDelta;
-
-        private float PinchDistanceDelta;
-        //{
-        //    get => m_PinchDistanceDelta;
-        //    set
-        //    {
-        //        if (value >= maxSize)
-        //            m_PinchDistanceDelta = maxSize;
-        //        else if (value <= minSize)
-        //            m_PinchDistanceDelta = minSize;
-        //        else
-        //            m_PinchDistanceDelta = value;
-        //    }
-        //}
-        private float m_PinchDistance;
+        public static float pinchDistanceDelta;
+        public static float pinchDistance;
 
         public bool isScaling;
+        public float lastDistance;
 
         public override void UpdateManipulator()
         {
@@ -48,40 +35,40 @@ namespace AR.ARKit.Manipulators
 
             Calculate();
 
-            arKitObject.transform.localScale = Vector3.one + (Vector3.one * PinchDistanceDelta);
+            float pinchAmount = 0;
+
+            if (Mathf.Abs(pinchDistanceDelta) > 0)
+            { // zoom
+                pinchAmount = pinchDistanceDelta;
+            }
+            arKitObject.transform.localScale += Vector3.one * pinchAmount;
         }
-
-        private Vector2 firstTouchPos1;
-        private Vector2 firstTouchPos2;
-
         private void Calculate()
         {
-            if (Input.touchCount == 1)
-            {
-                if(Input.GetTouch(0).phase == TouchPhase.Began)
-                    firstTouchPos1 = Input.GetTouch(0).position;
-            }
+            pinchDistance = pinchDistanceDelta = 0;
 
             if (Input.touchCount == 2)
             {
-                if (Input.GetTouch(1).phase == TouchPhase.Began)
-                    firstTouchPos2 = Input.GetTouch(1).position;
-
                 var touch1 = Input.GetTouch(0);
                 var touch2 = Input.GetTouch(1);
 
-                var scaleValue = 0.0f;
                 if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
                 {
-                    scaleValue += Vector2.Distance(firstTouchPos1, touch1.position);
-                    scaleValue += Vector2.Distance(firstTouchPos2, touch2.position);
+                    pinchDistance = Vector2.Distance(touch1.position, touch2.position);
+                    
+                    var prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition, touch2.position - touch2.deltaPosition);
+                    var distance = pinchDistance - prevDistance;
 
-                    DebugText.Instance.Text = scaleValue.ToString();
+                    DebugText.Instance.Text = m_MinPinchDistance.ToString();
 
-                    if (scaleValue > m_MinPinchDistance)
+                    // ... if it's greater than a minimum threshold, it's a pinch!
+                    if (Mathf.Abs(pinchDistanceDelta) > MinPinchDistance)
                     {
-                        isScaling = true;
-                        PinchDistanceDelta = Helper.RemapNumber(scaleValue, 0, m_MaxPinchDistance, minSize, maxSize);
+                        pinchDistanceDelta *= PinchRatio;
+                    }
+                    else
+                    {
+                        pinchDistance = pinchDistanceDelta = 0;
                     }
 
                     //// ... check the delta distance between them ...
