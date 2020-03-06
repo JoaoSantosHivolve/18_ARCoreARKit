@@ -9,7 +9,7 @@ namespace AR.ARKit.Manipulators
 
         [Range(0.00f,2.00f)]
         public float maxSize;
-        [Range(-2.00f,-0.01f)]
+        [Range(-1.00f,-0.01f)]
         public float minSize;
 
         private float m_PinchDistanceDelta;
@@ -64,7 +64,7 @@ namespace AR.ARKit.Manipulators
                 // ... if it's greater than a minimum threshold, it's a pinch!
                 if (Mathf.Abs(distance) > MinPinchDistance)
                 {
-                    PinchDistanceDelta = distance;
+                    PinchDistanceDelta += distance;
                 }
             }
         }
