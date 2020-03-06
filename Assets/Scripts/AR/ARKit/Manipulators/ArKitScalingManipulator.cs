@@ -57,7 +57,7 @@ namespace AR.ARKit.Manipulators
                     pinchDistance = Vector2.Distance(touch1.position, touch2.position);
                     
                     var prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition, touch2.position - touch2.deltaPosition);
-                    var distance = pinchDistance - prevDistance;
+                    pinchDistanceDelta = pinchDistance - prevDistance;
 
                     DebugText.Instance.Text = m_MinPinchDistance.ToString();
 
