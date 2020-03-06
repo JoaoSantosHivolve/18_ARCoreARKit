@@ -1,24 +1,41 @@
 ﻿using Common;
 using TMPro;
+using UnityEditor.UI;
 using UnityEngine;
 
 namespace AR.ARKit.Manipulators
 {
     public class ArKitScalingManipulator : ArKitManipulator
     {
-        private const float PinchRatio = 1f;
-        private const float MinPinchDistance = 2.5f;
+        private const float PinchRatio = 0.5f;
+        private const float MinPinchDistance = 1f;
 
         [Range( 0.00f, 2.00f)]
         public float maxSize;
         [Range(-0.50f, -0.01f)]
         public float minSize;
 
-        private float m_MinPinchDistance = 1;
-        private float m_MaxPinchDistance = 100;
-
         public static float pinchDistanceDelta;
         public static float pinchDistance;
+
+        public Vector3 m_Scale;
+        public Vector3 Scale
+        {
+            get => m_Scale;
+            set
+            {
+                m_Scale = value;
+
+                if (m_Scale.x >= maxSize)
+                {
+                    m_Scale = Vector3.one * maxSize;
+                }
+                else if(m_Scale.x < minSize)
+                {
+                    m_Scale = Vector3.one * minSize;
+                }
+            }
+        }
 
         public bool isScaling;
         public float lastDistance;
@@ -41,7 +58,10 @@ namespace AR.ARKit.Manipulators
             { // zoom
                 pinchAmount = pinchDistanceDelta;
             }
-            arKitObject.transform.localScale += Vector3.one * pinchAmount;
+
+            Scale += Vector3.one * pinchAmount;
+
+            arKitObject.transform.localScale += Scale;
         }
         private void Calculate()
         {
@@ -58,8 +78,6 @@ namespace AR.ARKit.Manipulators
                     
                     var prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition, touch2.position - touch2.deltaPosition);
                     pinchDistanceDelta = pinchDistance - prevDistance;
-
-                    DebugText.Instance.Text = m_MinPinchDistance.ToString();
 
                     // ... if it's greater than a minimum threshold, it's a pinch!
                     if (Mathf.Abs(pinchDistanceDelta) > MinPinchDistance)
