@@ -110,5 +110,5 @@ MonoBehaviour:
   arKitObject: {fileID: 0}
   manager: {fileID: 0}
   maxSize: 2
-  minSize: -1
+  minSize: -0.5
   isScaling: 0

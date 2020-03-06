@@ -4,8 +4,8 @@ namespace AR.ARKit.Manipulators
 {
     public class ArKitScalingManipulator : ArKitManipulator
     {
-        private const float PinchRatio = 0.5f;
-        private const float MinPinchDistance = 1;
+        private const float PinchRatio = 0.01f;
+        private const float MinPinchDistance = 20;
 
         [Range( 0.00f, 2.00f)]
         public float maxSize;
@@ -42,7 +42,7 @@ namespace AR.ARKit.Manipulators
 
             Calculate();
 
-            arKitObject.transform.localScale = Vector3.one + (Vector3.one * (PinchDistanceDelta * 0.25f));
+            arKitObject.transform.localScale = Vector3.one + (Vector3.one * (PinchDistanceDelta * PinchRatio));
         }
 
         private void Calculate()
