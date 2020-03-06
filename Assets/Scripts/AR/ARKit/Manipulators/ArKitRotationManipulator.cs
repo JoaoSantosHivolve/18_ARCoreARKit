@@ -5,7 +5,7 @@ namespace AR.ARKit.Manipulators
     public class ArKitRotationManipulator : ArKitManipulator
     {
         private const float PinchTurnRatio = Mathf.PI / 2;
-        private const float MinTurnAngle = 0;
+        private const float MinTurnAngle = 3;
 
         private static float s_TurnAngleDelta;
         private static float s_TurnAngle;
