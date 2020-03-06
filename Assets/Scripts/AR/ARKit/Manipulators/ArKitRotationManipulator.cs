@@ -10,6 +10,8 @@ namespace AR.ARKit.Manipulators
         private static float s_TurnAngleDelta;
         private static float s_TurnAngle;
 
+        public bool isRotating;
+
         private void LateUpdate()
         {
             if (!arKitObject.IsSelected) 
@@ -29,12 +31,12 @@ namespace AR.ARKit.Manipulators
             arKitObject.transform.rotation = desiredRotation;
         }
 
-        private static void Calculate()
+        private void Calculate()
         {
             s_TurnAngle = s_TurnAngleDelta = 0;
 
             // if two fingers are touching the screen at the same time ...
-            if (Input.touchCount == 2)
+            if (Input.touchCount == 2 && !arKitObject.IsScaling)
             {
                 Touch touch1 = Input.touches[0];
                 Touch touch2 = Input.touches[1];
@@ -51,6 +53,7 @@ namespace AR.ARKit.Manipulators
                     // ... if it's greater than a minimum threshold, it's a turn!
                     if (Mathf.Abs(s_TurnAngleDelta) > MinTurnAngle)
                     {
+                        isRotating = true;
                         s_TurnAngleDelta *= PinchTurnRatio;
                     }
                     else
@@ -59,6 +62,7 @@ namespace AR.ARKit.Manipulators
                     }
                 }
             }
+            else isRotating = false;
         }
         private static float Angle(Vector2 pos1, Vector2 pos2)
         {

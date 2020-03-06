@@ -8,6 +8,9 @@ namespace AR.ARKit
         public GameObject selectionVisualization;
         public Animator animator;
 
+        public bool IsScaling => manager.scaleManipulator.isScaling;
+        public bool IsRotating => manager.rotationManipulator.isRotating;
+
         public void Init(ArKitManipulatorsManager manager, GameObject selectionVisualization,
             RuntimeAnimatorController runtimeAnimatorController)
         {

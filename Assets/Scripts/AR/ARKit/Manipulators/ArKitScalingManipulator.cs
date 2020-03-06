@@ -69,7 +69,7 @@ namespace AR.ARKit.Manipulators
         {
             pinchDistance = pinchDistanceDelta = 0;
 
-            if (Input.touchCount == 2)
+            if (Input.touchCount == 2 && !arKitObject.IsRotating)
             {
                 var touch1 = Input.GetTouch(0);
                 var touch2 = Input.GetTouch(1);
@@ -84,6 +84,7 @@ namespace AR.ARKit.Manipulators
                     // ... if it's greater than a minimum threshold, it's a pinch!
                     if (Mathf.Abs(pinchDistanceDelta) > MinPinchDistance)
                     {
+                        isScaling = true;
                         pinchDistanceDelta *= PinchRatio;
                     }
                     else
