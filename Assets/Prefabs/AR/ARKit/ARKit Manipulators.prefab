@@ -109,6 +109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arKitObject: {fileID: 0}
   manager: {fileID: 0}
-  maxSize: 2
-  minSize: -0.5
+  maxSize: 3
+  minSize: 0.1
+  m_Scale: {x: 0, y: 0, z: 0}
   isScaling: 0
+  lastDistance: 0
