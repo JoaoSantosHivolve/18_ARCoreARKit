@@ -27,7 +27,7 @@ namespace AR.ARKit.Manipulators
                 {
                     m_Scale = Vector3.one * maxSize;
                 }
-                else if(m_Scale.x < minSize)
+                else if(m_Scale.x <= minSize)
                 {
                     m_Scale = Vector3.one * minSize;
                 }
@@ -63,7 +63,7 @@ namespace AR.ARKit.Manipulators
 
             Scale += Vector3.one * pinchAmount;
 
-            arKitObject.transform.localScale += Scale;
+            arKitObject.transform.localScale = Scale;
         }
         private void Calculate()
         {
