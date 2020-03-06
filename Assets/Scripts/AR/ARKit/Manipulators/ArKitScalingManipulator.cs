@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 
 namespace AR.ARKit.Manipulators
 {
@@ -42,7 +43,7 @@ namespace AR.ARKit.Manipulators
 
             Calculate();
 
-            arKitObject.transform.localScale = Vector3.one + (Vector3.one * (PinchDistanceDelta * PinchRatio));
+            arKitObject.transform.localScale = Vector3.one + (Vector3.one * PinchDistanceDelta);
         }
 
         private void Calculate()
@@ -70,7 +71,9 @@ namespace AR.ARKit.Manipulators
                 if (Mathf.Abs(distance) > MinPinchDistance)
                 {
                     isScaling = true;
-                    PinchDistanceDelta += distance;
+                    PinchDistanceDelta = distance - MinPinchDistance;
+
+                    PinchDistanceDelta = Helper.RemapNumber(PinchDistanceDelta, 0, 50, minSize, maxSize);
                 }
             }
         }
