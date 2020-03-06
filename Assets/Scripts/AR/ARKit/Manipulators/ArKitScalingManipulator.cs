@@ -1,7 +1,4 @@
-﻿using Common;
-using TMPro;
-using UnityEditor.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AR.ARKit.Manipulators
 {
@@ -43,6 +40,11 @@ namespace AR.ARKit.Manipulators
         public override void UpdateManipulator()
         {
             // Uses LateUpdate instead.
+        }
+
+        private void Start()
+        {
+            Scale = Vector3.one;
         }
 
         private void LateUpdate()
