@@ -7,9 +7,9 @@ namespace AR.ARKit.Manipulators
         private const float PinchRatio = 0.5f;
         private const float MinPinchDistance = 1;
 
-        [Range(0.00f,2.00f)]
+        [Range( 0.00f, 2.00f)]
         public float maxSize;
-        [Range(-1.00f,-0.01f)]
+        [Range(-0.50f, 0.00f)]
         public float minSize;
 
         private float m_PinchDistanceDelta;
@@ -28,6 +28,8 @@ namespace AR.ARKit.Manipulators
         }
         private float m_PinchDistance;
 
+        public bool isScaling;
+
         public override void UpdateManipulator()
         {
             // Uses LateUpdate instead.
@@ -40,13 +42,16 @@ namespace AR.ARKit.Manipulators
 
             Calculate();
 
-            arKitObject.transform.localScale = Vector3.one + (Vector3.one * PinchDistanceDelta);
+            arKitObject.transform.localScale = Vector3.one + (Vector3.one * (PinchDistanceDelta * 0.25f));
         }
 
         private void Calculate()
         {
-            if (Input.touchCount != 2) 
+            if (Input.touchCount != 2)
+            {
+                isScaling = false;
                 return;
+            }
 
             var touch1 = Input.touches[0];
             var touch2 = Input.touches[1];
@@ -64,6 +69,7 @@ namespace AR.ARKit.Manipulators
                 // ... if it's greater than a minimum threshold, it's a pinch!
                 if (Mathf.Abs(distance) > MinPinchDistance)
                 {
+                    isScaling = true;
                     PinchDistanceDelta += distance;
                 }
             }

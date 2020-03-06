@@ -21,11 +21,10 @@ namespace AR
             arKitSection.SetActive(false);
             arCoreSection.SetActive(true);
 #elif UNITY_IOS
-        arKitSection.SetActive(true);
-        arCoreSection.SetActive(false);
+            arKitSection.SetActive(true);
+            arCoreSection.SetActive(false);
 #endif
         }
-
 
         public void SetFloorScanningObject(GameObject prefab)
         {
@@ -34,6 +33,23 @@ namespace AR
 #elif UNITY_IOS
             arKitPlacementManipulator.placedPrefab = prefab;
 #endif
+        }
+
+        public void SetMarkerObject()
+        {
+
+        }
+        public void HidePlacedObjects()
+        {
+
+        }
+        public void DeletePlacedObjects()
+        {
+
+        }
+        public void DeleteSelectedObject()
+        {
+
         }
 
     }

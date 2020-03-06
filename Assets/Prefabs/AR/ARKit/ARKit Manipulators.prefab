@@ -111,3 +111,4 @@ MonoBehaviour:
   manager: {fileID: 0}
   maxSize: 2
   minSize: -1
+  isScaling: 0
