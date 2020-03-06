@@ -6,27 +6,28 @@ namespace AR.ARKit.Manipulators
     public class ArKitScalingManipulator : ArKitManipulator
     {
         private const float PinchRatio = 0.05f;
-        private const float MinPinchDistance = 5;
+        private const float MinPinchDistance = 2.5f;
 
         [Range( 0.00f, 2.00f)]
         public float maxSize;
-        [Range(-0.50f, 0.00f)]
+        [Range(-0.50f, -0.01f)]
         public float minSize;
 
         private float m_PinchDistanceDelta;
-        private float PinchDistanceDelta
-        {
-            get => m_PinchDistanceDelta;
-            set
-            {
-                if (value >= maxSize)
-                    m_PinchDistanceDelta = maxSize;
-                else if (value <= minSize)
-                    m_PinchDistanceDelta = minSize;
-                else
-                    m_PinchDistanceDelta = value;
-            }
-        }
+
+        private float PinchDistanceDelta;
+        //{
+        //    get => m_PinchDistanceDelta;
+        //    set
+        //    {
+        //        if (value >= maxSize)
+        //            m_PinchDistanceDelta = maxSize;
+        //        else if (value <= minSize)
+        //            m_PinchDistanceDelta = minSize;
+        //        else
+        //            m_PinchDistanceDelta = value;
+        //    }
+        //}
         private float m_PinchDistance;
 
         public bool isScaling;
@@ -71,9 +72,8 @@ namespace AR.ARKit.Manipulators
                 if (Mathf.Abs(distance) > MinPinchDistance)
                 {
                     isScaling = true;
-                    PinchDistanceDelta = distance - MinPinchDistance;
 
-                    PinchDistanceDelta = Helper.RemapNumber(PinchDistanceDelta, 0, 50, minSize, maxSize);
+                    PinchDistanceDelta = Helper.RemapNumber(distance - MinPinchDistance, 0, 50, minSize, maxSize);
                 }
             }
         }
