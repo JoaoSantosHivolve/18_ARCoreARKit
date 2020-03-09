@@ -87,6 +87,7 @@ namespace AR.ARKit.Manipulators
                     if (!isScaling && Mathf.Abs(pinchDistance) > triggerDistance)
                     {
                         isScaling = true;
+                        pinchDistance = pinchDistanceDelta = 0;
                     }
                     else if (isScaling && Mathf.Abs(pinchDistanceDelta) > MinPinchDistance)
                     {
