@@ -20,6 +20,9 @@ namespace AR.ARKit
         public GameObject selectionVisualizationPrefab;
         public ArKitManipulatorsManager objectManipulatorsPrefab;
 
+        [Header("Instantiated objects")] 
+        public List<ArKitManipulatorsManager> placedObjects;
+
         private float m_Time;
         private bool m_UsedTwoFingers;
 
@@ -70,11 +73,28 @@ namespace AR.ARKit
                     // Set object selected
                     manipulatorController.SelectedObject = prefab.GetComponent<ArKitObject>();
 
+                    // Add to list
+                    placedObjects.Add(manipulatorsManager);
+
                     // Instantiated object order
                     // - Manipulators
                     // - Object
                     // - Object Selected Visual Queue
                 }
+            }
+        }
+
+        public void SetVisibility(bool state)
+        {
+            foreach (var o in placedObjects)
+            {
+                if (o == null)
+                    continue;
+
+                o.gameObject.SetActive(state);
+                
+                if(!state)
+                    manipulatorController.Deselect();
             }
         }
 

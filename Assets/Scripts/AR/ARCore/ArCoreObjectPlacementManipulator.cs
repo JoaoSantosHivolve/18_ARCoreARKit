@@ -41,6 +41,8 @@ namespace AR.ARCore
         public GameObject placedPrefab;
         public GameObject manipulatorPrefab;
 
+        public List<GameObject> placedObjects;
+
         private void Awake()
         {
             firstPersonCamera = Camera.main;
@@ -114,7 +116,22 @@ namespace AR.ARCore
 
                     // Set manipulator attached object
                     manipulator.GetComponent<Manipulator>().placedObject = prefab;
+
+                    placedObjects.Add(manipulator);
                 }
+            }
+        }
+
+        public void SetVisibility(bool state)
+        {
+            foreach (var o in placedObjects)
+            {
+                if (o == null) 
+                    continue;
+
+                o.SetActive(state);
+                if(!state)
+                    o.GetComponent<Manipulator>().Deselect();
             }
         }
 

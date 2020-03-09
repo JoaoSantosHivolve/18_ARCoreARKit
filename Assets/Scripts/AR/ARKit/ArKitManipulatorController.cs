@@ -66,7 +66,8 @@ namespace AR.ARKit
 
             return false;
         }
-        private void Select(ArKitObject newObject)
+
+        public void Select(ArKitObject newObject)
         {
             if (SelectedObject == newObject)
                 return;
@@ -76,7 +77,7 @@ namespace AR.ARKit
             SelectedObject = newObject;
         }
 
-        private void Deselect()
+        public void Deselect()
         {
             SelectedObject = null;
         }

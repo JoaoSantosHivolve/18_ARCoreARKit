@@ -39,9 +39,13 @@ namespace AR
         {
 
         }
-        public void HidePlacedObjects()
+        public void SetPlacedObjectVisibility(bool state)
         {
-
+#if UNITY_ANDROID
+            arCorePlacementManipulator.SetVisibility(state);
+#elif UNITY_IOS
+            arKitPlacementManipulator.SetVisibility(state);
+#endif
         }
         public void DeletePlacedObjects()
         {
