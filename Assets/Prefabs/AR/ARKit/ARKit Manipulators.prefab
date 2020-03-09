@@ -81,6 +81,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arKitObject: {fileID: 0}
   manager: {fileID: 0}
+  isRotating: 0
+  triggerAngle: 5
 --- !u!114 &-4029415234495576193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,5 +114,6 @@ MonoBehaviour:
   maxSize: 3
   minSize: 0.75
   m_Scale: {x: 0, y: 0, z: 0}
+  triggerDistance: 5
   isScaling: 0
   lastDistance: 0

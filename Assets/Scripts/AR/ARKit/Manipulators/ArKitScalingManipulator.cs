@@ -5,7 +5,7 @@ namespace AR.ARKit.Manipulators
     public class ArKitScalingManipulator : ArKitManipulator
     {
         private const float PinchRatio = 0.01f;
-        private const float MinPinchDistance = 3f;
+        private const float MinPinchDistance = 0f;
 
         [Range( 1.00f, 5.00f)]
         public float maxSize;
@@ -33,6 +33,8 @@ namespace AR.ARKit.Manipulators
                 }
             }
         }
+
+        public float triggerDistance;
 
         public bool isScaling;
         public float lastDistance;
@@ -82,9 +84,12 @@ namespace AR.ARKit.Manipulators
                     pinchDistanceDelta = pinchDistance - prevDistance;
 
                     // ... if it's greater than a minimum threshold, it's a pinch!
-                    if (Mathf.Abs(pinchDistanceDelta) > MinPinchDistance)
+                    if (!isScaling && Mathf.Abs(pinchDistance) > triggerDistance)
                     {
                         isScaling = true;
+                    }
+                    else if (isScaling && Mathf.Abs(pinchDistanceDelta) > MinPinchDistance)
+                    {
                         pinchDistanceDelta *= PinchRatio;
                     }
                     else

@@ -5,12 +5,14 @@ namespace AR.ARKit.Manipulators
     public class ArKitRotationManipulator : ArKitManipulator
     {
         private const float PinchTurnRatio = Mathf.PI / 2;
-        private const float MinTurnAngle = 2;
+        private const float MinTurnAngle = 1;
 
         private static float s_TurnAngleDelta;
         private static float s_TurnAngle;
 
         public bool isRotating;
+
+        public float triggerAngle;
 
         private void LateUpdate()
         {
@@ -51,9 +53,12 @@ namespace AR.ARKit.Manipulators
                     s_TurnAngleDelta = Mathf.DeltaAngle(prevTurn, s_TurnAngle);
 
                     // ... if it's greater than a minimum threshold, it's a turn!
-                    if (Mathf.Abs(s_TurnAngleDelta) > MinTurnAngle)
+                    if (!isRotating && Mathf.Abs(s_TurnAngleDelta) > triggerAngle)
                     {
                         isRotating = true;
+                    }
+                    if (isRotating && Mathf.Abs(s_TurnAngleDelta) > MinTurnAngle)
+                    {
                         s_TurnAngleDelta *= PinchTurnRatio;
                     }
                     else
