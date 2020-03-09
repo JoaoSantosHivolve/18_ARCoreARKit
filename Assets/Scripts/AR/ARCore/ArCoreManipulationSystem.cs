@@ -134,5 +134,14 @@ namespace GoogleARCore.Examples.ObjectManipulation
             Deselect();
             SelectedObject = target;
         }
+
+        public void Delete()
+        {
+            if (SelectedObject != null)
+            {
+                Destroy(SelectedObject.transform.parent.gameObject);
+                Deselect();
+            }
+        }
     }
 }

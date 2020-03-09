@@ -2,7 +2,7 @@
 
 namespace AR.ARKit
 {
-    public class ArKitManipulatorController : MonoBehaviour
+    public class ArKitManipulationSystem : MonoBehaviour
     {
         public Camera mainCamera;
 
@@ -80,6 +80,15 @@ namespace AR.ARKit
         public void Deselect()
         {
             SelectedObject = null;
+        }
+
+        public void Delete()
+        {
+            if (SelectedObject != null)
+            {
+                Destroy(SelectedObject.gameObject);
+                Deselect();
+            }
         }
     }
 }

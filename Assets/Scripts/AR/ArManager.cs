@@ -1,6 +1,7 @@
 ﻿using AR.ARCore;
 using AR.ARKit;
 using Assets.Scripts.Common;
+using GoogleARCore.Examples.ObjectManipulation;
 using UnityEngine;
 
 namespace AR
@@ -14,6 +15,10 @@ namespace AR
         [Header("Object placement components")]
         public ArCoreObjectPlacementManipulator arCorePlacementManipulator;
         public ArKitObjectPlacementManipulator arKitPlacementManipulator;
+
+        [Header("Object manipulation systems")] 
+        public ArCoreManipulationSystem arCoreManipulationSystem;
+        public ArKitManipulationSystem arKitManipulationSystem;
 
         protected override void Awake()
         {
@@ -49,12 +54,19 @@ namespace AR
         }
         public void DeletePlacedObjects()
         {
-
+#if UNITY_ANDROID
+            arCorePlacementManipulator.DeletePlacedObjects();;
+#elif UNITY_IOS
+            arKitPlacementManipulator.DeletePlacedObjects();
+#endif
         }
         public void DeleteSelectedObject()
         {
-
+#if UNITY_ANDROID
+            arCoreManipulationSystem.Delete();
+#elif UNITY_IOS
+            arKitManipulationSystem.Delete();
+#endif
         }
-
     }
 }

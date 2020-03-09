@@ -135,6 +135,23 @@ namespace AR.ARCore
             }
         }
 
+        public void DeletePlacedObjects()
+        {
+            foreach (var o in placedObjects)
+            {
+                if (o == null)
+                    continue;
+
+                o.GetComponent<Manipulator>().Deselect();
+
+                // Deletes Anchor
+                Destroy(o.transform.parent.gameObject);
+            }
+
+            // Resets List
+            placedObjects = new List<GameObject>();
+        }
+
         private static bool IsPointerOverUiObject(TapGesture gesture)
         {
             // Referencing this code for GraphicRaycaster https://gist.github.com/stramit/ead7ca1f432f3c0f181f

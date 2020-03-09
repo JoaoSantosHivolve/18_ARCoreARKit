@@ -10,7 +10,7 @@ namespace AR.ARKit
     {
         public Camera mainCamera;
         public ARRaycastManager raycastManager;
-        public ArKitManipulatorController manipulatorController;
+        public ArKitManipulationSystem manipulationSystem;
 
         [Header("Instantiated object animator")]
         public RuntimeAnimatorController runtimeAnimatorController;
@@ -71,7 +71,7 @@ namespace AR.ARKit
                     prefab.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
 
                     // Set object selected
-                    manipulatorController.SelectedObject = prefab.GetComponent<ArKitObject>();
+                    manipulationSystem.SelectedObject = prefab.GetComponent<ArKitObject>();
 
                     // Add to list
                     placedObjects.Add(manipulatorsManager);
@@ -94,8 +94,25 @@ namespace AR.ARKit
                 o.gameObject.SetActive(state);
                 
                 if(!state)
-                    manipulatorController.Deselect();
+                    manipulationSystem.Deselect();
             }
+        }
+
+        public void DeletePlacedObjects()
+        {
+            manipulationSystem.Deselect();
+
+            foreach (var o in placedObjects)
+            {
+                if (o == null)
+                    continue;
+
+                // Deletes Manipulator
+                Destroy(o.gameObject);
+            }
+
+            // Resets List
+            placedObjects = new List<ArKitManipulatorsManager>();
         }
 
         private bool Tapped(Touch touch)

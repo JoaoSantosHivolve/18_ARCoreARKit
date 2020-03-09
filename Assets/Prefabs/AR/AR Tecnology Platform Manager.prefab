@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a46c818af354896be90ada1adb43c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  session: {fileID: 4902017616512973837}
+  session: {fileID: 8134074067057089789}
   sessionPrefab: {fileID: 3811591508773167257, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
     type: 3}
   pauseButton: {fileID: 518573351}
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4902017616512973832}
+      - m_Target: {fileID: 8134074067057089788}
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4902017616512973837}
+      - m_Target: {fileID: 8134074067057089789}
         m_MethodName: Reset
         m_Mode: 1
         m_Arguments:
@@ -887,7 +887,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4902017616512973832}
+      - m_Target: {fileID: 8134074067057089788}
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
@@ -1229,7 +1229,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4902017616512973834}
+  - {fileID: 8134074067057089750}
   - {fileID: 374211798}
   - {fileID: 443824529}
   - {fileID: 3081773156160486656}
@@ -1330,6 +1330,8 @@ MonoBehaviour:
   arCoreSection: {fileID: 2510049215276967855}
   arCorePlacementManipulator: {fileID: 6008070325310920720}
   arKitPlacementManipulator: {fileID: 1500740257010063586}
+  arCoreManipulationSystem: {fileID: 3952255767178077365}
+  arKitManipulationSystem: {fileID: 1183660133}
 --- !u!1 &6635430577486140137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,7 +1377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 6295769464456448169}
   raycastManager: {fileID: 948078804023074198}
-  manipulatorController: {fileID: 1183660133}
+  manipulationSystem: {fileID: 1183660133}
   runtimeAnimatorController: {fileID: 9100000, guid: 4e1ae249321386045b2974b3395d2f3a,
     type: 2}
   placedPrefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b,
@@ -1384,6 +1386,7 @@ MonoBehaviour:
     type: 3}
   objectManipulatorsPrefab: {fileID: 4450281437813955242, guid: 6c0ceb05901e6c84aab775f043dcebce,
     type: 3}
+  placedObjects: []
 --- !u!1 &6830087505520668546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,6 +1570,7 @@ MonoBehaviour:
     type: 3}
   manipulatorPrefab: {fileID: 1122865395318488, guid: 24556cd4924884d9aaa3d80135c8021d,
     type: 3}
+  placedObjects: []
 --- !u!1 &8596211911718424663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,13 +1804,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90290c13d4a3d46eea32be3d6a1a14c4, type: 3}
---- !u!4 &4902017616512973834 stripped
+--- !u!4 &8134074067057089750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3811591508773167263, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
     type: 3}
   m_PrefabInstance: {fileID: 8134074067057089685}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4902017616512973832 stripped
+--- !u!114 &8134074067057089788 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3811591508773167261, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
     type: 3}
@@ -1818,7 +1822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa850fbd5b8aded44846f96e35f1a9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4902017616512973837 stripped
+--- !u!114 &8134074067057089789 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3811591508773167256, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
     type: 3}
