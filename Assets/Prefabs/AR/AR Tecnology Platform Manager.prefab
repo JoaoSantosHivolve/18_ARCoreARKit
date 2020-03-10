@@ -1414,7 +1414,7 @@ MonoBehaviour:
   arCoreManipulationSystem: {fileID: 3952255767178077365}
   arKitManipulationSystem: {fileID: 1183660133}
   arCoreMarkerController: {fileID: 4134415260564129167}
-  arKitMarkerController: {fileID: 0}
+  arKitMarkerController: {fileID: 8059385825430194538}
   arCoreMarkerSection: {fileID: 4544480456448502924}
   arCoreFloorScanningSection: {fileID: 8815527413143323522}
   arCoreSession: {fileID: 178483721021941864}
@@ -1817,6 +1817,7 @@ MonoBehaviour:
     type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: 4e1ae249321386045b2974b3395d2f3a,
     type: 2}
+  placedObjects: []
 --- !u!114 &1446472447103262626
 MonoBehaviour:
   m_ObjectHideFlags: 0
