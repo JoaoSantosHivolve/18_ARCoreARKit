@@ -1,4 +1,5 @@
 ﻿using System;
+using _3rdParty.ARKit.Scenes.ImageTracking;
 using AR.ARCore;
 using AR.ARCore.Marker;
 using AR.ARKit;
@@ -52,7 +53,7 @@ namespace AR
 
         [Header("Object marker components")] 
         public ArCoreMarkerController arCoreMarkerController;
-        public ARTrackedImageManager arKitMarkerController;
+        public TrackedImageInfoManager arKitMarkerController;
 
         [Header("ARCore components Sections")] 
         public GameObject arCoreMarkerSection;
@@ -99,15 +100,18 @@ namespace AR
             arCoreMarkerController.SetVisibility(state);
 #elif UNITY_IOS
             arKitPlacementManipulator.SetVisibility(state);
+            arKitMarkerController.SetVisibility(state);
 #endif
         }
         public void DeletePlacedObjects()
         {
 #if UNITY_ANDROID
             arCorePlacementManipulator.DeletePlacedObjects();
+            // Marker deletion not really working // Maybe not even necessary
             arCoreMarkerController.DeletePlacedObjects();
 #elif UNITY_IOS
             arKitPlacementManipulator.DeletePlacedObjects();
+
 #endif
         }
         public void DeleteSelectedObject()

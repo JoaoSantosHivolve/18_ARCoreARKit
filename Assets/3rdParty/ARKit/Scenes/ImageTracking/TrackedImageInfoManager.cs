@@ -1,4 +1,5 @@
-﻿using AR.ARKit;
+﻿using System.Collections.Generic;
+using AR.ARKit;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -59,6 +60,9 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
         [Header("Instantiated object animator")]
         public RuntimeAnimatorController runtimeAnimatorController;
 
+        [Header("Instantiated objects")]
+        public List<ArKitManipulatorsManager> placedObjects = new List<ArKitManipulatorsManager>();
+
         private void Awake()
         {
             m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
@@ -95,7 +99,7 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
             // Disable the visual plane if it is not being tracked
             if (trackedImage.trackingState != TrackingState.None)
             {
-                trackedImage.gameObject.SetActive(true);
+                //trackedImage.gameObject.SetActive(true);
                 //planeGo.SetActive(true);
 
                 //// The image extents is only valid when the image is being tracked
@@ -133,6 +137,20 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
 
             // Set object selected
             manipulationSystem.Select(trackedImage.GetComponent<ArKitObject>());
+
+            // Add to list
+            placedObjects.Add(manipulatorsManager);
+        }
+
+        public void SetVisibility(bool state)
+        {
+            foreach (var o in placedObjects)
+            {
+                if (o == null)
+                    continue;
+
+                o.gameObject.SetActive(state);
+            }
         }
 
         private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
