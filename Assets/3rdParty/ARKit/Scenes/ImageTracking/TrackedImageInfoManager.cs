@@ -62,6 +62,7 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
         private void Awake()
         {
             m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
+            Prefab = prefab;
         }
         private void OnEnable()
         {
