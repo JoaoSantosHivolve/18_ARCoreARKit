@@ -114,24 +114,25 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
 
         private void SetImage(ARTrackedImage trackedImage)
         {
+            trackedImage.gameObject.AddComponent<ArKitObject>();
+
             // Instantiate object manipulators ( rotate, position, scale, ... )
             var manipulatorsManager = Instantiate(manipulatorPrefab);
-            manipulatorsManager.ArKitObject = prefab.GetComponent<ArKitObject>();
+            manipulatorsManager.ArKitObject = trackedImage.GetComponent<ArKitObject>();
             manipulatorsManager.rayCastManager = rayCastManager;
             manipulatorsManager.mainCamera = m_WorldSpaceCanvasCamera;
 
             // Instantiate object selected visual queue ( circle under object )
-            var selectionVisualization = Instantiate(selectionPrefab, prefab.transform, true);
+            var selectionVisualization = Instantiate(selectionPrefab, trackedImage.transform, true);
             selectionVisualization.transform.localPosition = Vector3.zero;
-            selectionVisualization.transform.localScale = prefab.transform.localScale;
+            selectionVisualization.transform.localScale = trackedImage.transform.localScale;
 
             // Init prefab components
             trackedImage.transform.parent = manipulatorsManager.transform;
-            trackedImage.gameObject.AddComponent<ArKitObject>();
             trackedImage.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
 
             // Set object selected
-            manipulationSystem.Select(prefab.GetComponent<ArKitObject>());
+            manipulationSystem.Select(trackedImage.GetComponent<ArKitObject>());
         }
 
         private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
