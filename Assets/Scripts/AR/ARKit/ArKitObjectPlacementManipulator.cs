@@ -87,8 +87,6 @@ namespace AR.ARKit
 
         public void SetVisibility(bool state)
         {
-            if(!state)
-                ArCoreManipulationSystem.Instance.Deselect();
 
             foreach (var o in placedObjects)
             {
@@ -101,7 +99,7 @@ namespace AR.ARKit
 
         public void DeletePlacedObjects()
         {
-            ArCoreManipulationSystem.Instance.Deselect();
+            manipulationSystem.Deselect();
 
             foreach (var o in placedObjects)
             {

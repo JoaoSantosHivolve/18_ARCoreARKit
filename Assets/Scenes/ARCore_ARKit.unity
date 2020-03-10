@@ -2918,6 +2918,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AR Tecnology Platform Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7130103818291394886, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
+        type: 3}
+      propertyPath: m_DetectionMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
 --- !u!114 &8134074066807071549 stripped
