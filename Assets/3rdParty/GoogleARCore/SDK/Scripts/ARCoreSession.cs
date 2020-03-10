@@ -105,8 +105,7 @@ namespace GoogleARCore
         /// <summary>
         /// Unity OnEnable.
         /// </summary>
-        [SuppressMemoryAllocationError(
-            Reason = "Enabling session creates a new ARSessionConfiguration")]
+        [SuppressMemoryAllocationError(Reason = "Enabling session creates a new ARSessionConfiguration")]
         public void OnEnable()
         {
             LifecycleManager.Instance.EnableSession();

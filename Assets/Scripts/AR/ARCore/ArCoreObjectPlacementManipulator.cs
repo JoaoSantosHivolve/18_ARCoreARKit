@@ -23,13 +23,9 @@ using GoogleARCore;
 using GoogleARCore.Examples.ObjectManipulation;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace AR.ARCore
 {
-    /// <summary>
-    /// Controls the placement of objects via a tap gesture.
-    /// </summary>
     public class ArCoreObjectPlacementManipulator : Manipulator
     {
         public Camera firstPersonCamera;
@@ -107,6 +103,9 @@ namespace AR.ARCore
                     // Create an anchor to allow ARCore to track the hitpoint as understanding of
                     // the physical world evolves.
                     var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                    // Set whole object child of this
+                    anchor.transform.parent = transform;
 
                     // Make manipulator a child of the anchor.
                     manipulator.transform.parent = anchor.transform;

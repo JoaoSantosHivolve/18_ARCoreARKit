@@ -194,8 +194,9 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         private void _ClearCachedPoints()
         {
-            m_CachedPoints.Clear();
-            m_Mesh.Clear();
+            m_CachedPoints?.Clear();
+            if(m_Mesh != null)
+                m_Mesh.Clear();
         }
 
         /// <summary>

@@ -18,14 +18,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GoogleARCore.Examples.AugmentedImage
-{
-    using System.Collections.Generic;
-    using System.Runtime.InteropServices;
-    using GoogleARCore;
-    using UnityEngine;
-    using UnityEngine.UI;
+using System.Collections.Generic;
+using GoogleARCore;
+using GoogleARCore.Examples.ObjectManipulation;
+using UnityEngine;
+using UnityEngine.Serialization;
 
+namespace AR.ARCore.Marker
+{
     /// <summary>
     /// Controller for AugmentedImage example.
     /// </summary>
@@ -38,36 +38,31 @@ namespace GoogleARCore.Examples.AugmentedImage
     /// See details in <a href="https://developers.google.com/ar/develop/c/augmented-images/">
     /// Recognize and Augment Images</a>
     /// </remarks>
-    public class AugmentedImageExampleController : MonoBehaviour
+    public class ArCoreMarkerController : MonoBehaviour
     {
-        /// <summary>
-        /// A prefab for visualizing an AugmentedImage.
-        /// </summary>
-        public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
+        [Header("Instantiated object animator")]
+        public RuntimeAnimatorController runtimeAnimatorController;
 
-        /// <summary>
-        /// The overlay containing the fit to scan user guide.
-        /// </summary>
-        public GameObject FitToScanOverlay;
+        public GameObject prefab;
+        public GameObject manipulatorPrefab;
 
-        private Dictionary<int, AugmentedImageVisualizer> m_Visualizers
-            = new Dictionary<int, AugmentedImageVisualizer>();
+
+        [Header("Overlay when detecting markers")]
+        public GameObject fitToScanOverlay;
+
+        private Dictionary<int, ArCoreMarkerVisualizer> m_Visualizers
+            = new Dictionary<int, ArCoreMarkerVisualizer>();
 
         private List<AugmentedImage> m_TempAugmentedImages = new List<AugmentedImage>();
 
-        /// <summary>
-        /// The Unity Awake() method.
-        /// </summary>
+        private List<ArCoreMarkerVisualizer> m_PlacedObjects = new List<ArCoreMarkerVisualizer>();
+
         public void Awake()
         {
             // Enable ARCore to target 60fps camera capture frame rate on supported devices.
             // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
             Application.targetFrameRate = 60;
         }
-
-        /// <summary>
-        /// The Unity Update method.
-        /// </summary>
         public void Update()
         {
             // Exit the app when the 'back' button is pressed.
@@ -87,42 +82,94 @@ namespace GoogleARCore.Examples.AugmentedImage
             }
 
             // Get updated augmented images for this frame.
-            Session.GetTrackables<AugmentedImage>(
-                m_TempAugmentedImages, TrackableQueryFilter.Updated);
+            Session.GetTrackables(m_TempAugmentedImages, TrackableQueryFilter.Updated);
 
             // Create visualizers and anchors for updated augmented images that are tracking and do
             // not previously have a visualizer. Remove visualizers for stopped images.
             foreach (var image in m_TempAugmentedImages)
             {
-                AugmentedImageVisualizer visualizer = null;
+                ArCoreMarkerVisualizer visualizer = null;
                 m_Visualizers.TryGetValue(image.DatabaseIndex, out visualizer);
+
                 if (image.TrackingState == TrackingState.Tracking && visualizer == null)
                 {
                     // Create an anchor to ensure that ARCore keeps tracking this augmented image.
-                    Anchor anchor = image.CreateAnchor(image.CenterPose);
-                    visualizer = (AugmentedImageVisualizer)Instantiate(
-                        AugmentedImageVisualizerPrefab, anchor.transform);
-                    visualizer.Image = image;
+                    var anchor = image.CreateAnchor(image.CenterPose);
+
+                    // Set whole object child of this
+                    anchor.transform.parent = transform;
+
+                    visualizer = Instantiate(prefab.AddComponent<ArCoreMarkerVisualizer>(), anchor.transform);
+                    visualizer.image = image;
+
+                    // Add object animator
+                    visualizer.gameObject.AddComponent<Animator>();
+                    visualizer.gameObject.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
+
+                    visualizer.anchor = anchor.gameObject;
+
+                    // Instantiate manipulator
+                    var manipulator = Instantiate(manipulatorPrefab, image.CenterPose.position, image.CenterPose.rotation);
+
+                    // Make game object a child of the manipulator
+                    visualizer.transform.parent = manipulator.transform;
+
+                    // Make manipulator a child of the anchor
+                    manipulator.transform.parent = anchor.transform;
+                    
+                    // Select the placed object
+                    manipulator.GetComponent<Manipulator>().Select();
+                    
+                    // Add objects to list
+                    m_PlacedObjects.Add(visualizer);
+
                     m_Visualizers.Add(image.DatabaseIndex, visualizer);
                 }
                 else if (image.TrackingState == TrackingState.Stopped && visualizer != null)
                 {
                     m_Visualizers.Remove(image.DatabaseIndex);
-                    GameObject.Destroy(visualizer.gameObject);
+                    Destroy(visualizer.gameObject);
                 }
             }
+
+          
 
             // Show the fit-to-scan overlay if there are no images that are Tracking.
             foreach (var visualizer in m_Visualizers.Values)
             {
-                if (visualizer.Image.TrackingState == TrackingState.Tracking)
+                if (visualizer.image.TrackingState == TrackingState.Tracking)
                 {
-                    FitToScanOverlay.SetActive(false);
+                    fitToScanOverlay.SetActive(false);
                     return;
                 }
             }
+            fitToScanOverlay.SetActive(true);
+        }
 
-            FitToScanOverlay.SetActive(true);
+        public void SetVisibility(bool state)
+        {
+            foreach (var o in m_PlacedObjects)
+            {
+                if (o == null)
+                    continue;
+                o.transform.parent.gameObject.SetActive(state);
+            }
+        }
+
+        public void DeletePlacedObjects()
+        {
+            foreach (var o in m_PlacedObjects)
+            {
+                if (o == null)
+                    continue;
+
+                m_Visualizers.Remove(o.image.DatabaseIndex);
+                // Deletes Anchor
+                Destroy(o.anchor);
+            }
+
+            // Resets List
+            m_PlacedObjects = new List<ArCoreMarkerVisualizer>();
         }
     }
 }

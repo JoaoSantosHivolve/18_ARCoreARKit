@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GoogleARCore.Examples.ObjectManipulation;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
@@ -71,7 +72,7 @@ namespace AR.ARKit
                     prefab.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
 
                     // Set object selected
-                    manipulationSystem.SelectedObject = prefab.GetComponent<ArKitObject>();
+                    manipulationSystem.Select(prefab.GetComponent<ArKitObject>());
 
                     // Add to list
                     placedObjects.Add(manipulatorsManager);
@@ -86,21 +87,21 @@ namespace AR.ARKit
 
         public void SetVisibility(bool state)
         {
+            if(!state)
+                ArCoreManipulationSystem.Instance.Deselect();
+
             foreach (var o in placedObjects)
             {
                 if (o == null)
                     continue;
 
                 o.gameObject.SetActive(state);
-                
-                if(!state)
-                    manipulationSystem.Deselect();
             }
         }
 
         public void DeletePlacedObjects()
         {
-            manipulationSystem.Deselect();
+            ArCoreManipulationSystem.Instance.Deselect();
 
             foreach (var o in placedObjects)
             {
