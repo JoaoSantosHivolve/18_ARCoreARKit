@@ -1808,6 +1808,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WorldSpaceCanvasCamera: {fileID: 6295769464456448169}
   m_DefaultTexture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+  rayCastManager: {fileID: 948078804023074198}
+  manipulationSystem: {fileID: 1183660133}
+  prefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b, type: 3}
+  manipulatorPrefab: {fileID: 4450281437813955242, guid: 6c0ceb05901e6c84aab775f043dcebce,
+    type: 3}
+  selectionPrefab: {fileID: 1825987397968370, guid: 7ab3787b240931a498e365a296b6f9ed,
+    type: 3}
+  runtimeAnimatorController: {fileID: 9100000, guid: 4e1ae249321386045b2974b3395d2f3a,
+    type: 2}
 --- !u!114 &1446472447103262626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1822,7 +1831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedLibrary: {fileID: 11400000, guid: c86e375d7e7430442a1104e88fa21f21,
     type: 2}
-  m_MaxNumberOfMovingImages: 0
+  m_MaxNumberOfMovingImages: 4
   m_TrackedImagePrefab: {fileID: 3312728602301253215, guid: 5d81b097707c58e4b949537763ba4bbe,
     type: 3}
 --- !u!1 &7304967526955463109

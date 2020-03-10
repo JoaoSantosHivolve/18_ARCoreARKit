@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using AR.ARKit;
+using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -37,66 +39,108 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
 
         ARTrackedImageManager m_TrackedImageManager;
 
-        void Awake()
+       
+        public ARRaycastManager rayCastManager;
+        public ArKitManipulationSystem manipulationSystem;
+
+        [Header("Prefabs to Instantiate")]
+        [SerializeField] private GameObject prefab;
+        public GameObject Prefab
+        {
+            get => prefab;
+            set
+            {
+                prefab = value;
+                m_TrackedImageManager.trackedImagePrefab = value;
+            }
+        }
+        public ArKitManipulatorsManager manipulatorPrefab;
+        public GameObject selectionPrefab;
+        [Header("Instantiated object animator")]
+        public RuntimeAnimatorController runtimeAnimatorController;
+
+        private void Awake()
         {
             m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
         }
-
-        void OnEnable()
+        private void OnEnable()
         {
             m_TrackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
         }
-
-        void OnDisable()
+        private void OnDisable()
         {
             m_TrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
         }
 
         void UpdateInfo(ARTrackedImage trackedImage)
         {
-            // Set canvas camera
-            var canvas = trackedImage.GetComponentInChildren<Canvas>();
-            canvas.worldCamera = worldSpaceCanvasCamera;
-
-            // Update information about the tracked image
-            var text = canvas.GetComponentInChildren<Text>();
-            text.text = string.Format(
-                "{0}\ntrackingState: {1}\nGUID: {2}\nReference size: {3} cm\nDetected size: {4} cm",
-                trackedImage.referenceImage.name,
-                trackedImage.trackingState,
-                trackedImage.referenceImage.guid,
-                trackedImage.referenceImage.size * 100f,
-                trackedImage.size * 100f);
-
-            var planeParentGo = trackedImage.transform.GetChild(0).gameObject;
-            var planeGo = planeParentGo.transform.GetChild(0).gameObject;
-
+           //// Set canvas camera
+           //var canvas = trackedImage.GetComponentInChildren<Canvas>();
+           //canvas.worldCamera = worldSpaceCanvasCamera;
+           //
+           //// Update information about the tracked image
+           //var text = canvas.GetComponentInChildren<Text>();
+           //text.text = string.Format(
+           //    "{0}\ntrackingState: {1}\nGUID: {2}\nReference size: {3} cm\nDetected size: {4} cm",
+           //    trackedImage.referenceImage.name,
+           //    trackedImage.trackingState,
+           //    trackedImage.referenceImage.guid,
+           //    trackedImage.referenceImage.size * 100f,
+           //    trackedImage.size * 100f);
+           //
+           //var planeParentGo = trackedImage.transform.GetChild(0).gameObject;
+           //var planeGo = planeParentGo.transform.GetChild(0).gameObject;
+           //
             // Disable the visual plane if it is not being tracked
             if (trackedImage.trackingState != TrackingState.None)
             {
-                planeGo.SetActive(true);
+                trackedImage.gameObject.SetActive(true);
+                //planeGo.SetActive(true);
 
-                // The image extents is only valid when the image is being tracked
-                trackedImage.transform.localScale = new Vector3(trackedImage.size.x, 1f, trackedImage.size.y);
-
-                // Set the texture
-                var material = planeGo.GetComponentInChildren<MeshRenderer>().material;
-                material.mainTexture = (trackedImage.referenceImage.texture == null) ? defaultTexture : trackedImage.referenceImage.texture;
+                //// The image extents is only valid when the image is being tracked
+                //trackedImage.transform.localScale = new Vector3(trackedImage.size.x, 1f, trackedImage.size.y);
+                //
+                //// Set the texture
+                //var material = planeGo.GetComponentInChildren<MeshRenderer>().material;
+                //material.mainTexture = (trackedImage.referenceImage.texture == null) ? defaultTexture : trackedImage.referenceImage.texture;
             }
             else
             {
-                planeGo.SetActive(false);
+                //trackedImage.gameObject.SetActive(false);
+                //planeGo.SetActive(false);
             }
         }
 
-        void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
+        private void SetImage(ARTrackedImage trackedImage)
+        {
+            // Instantiate object manipulators ( rotate, position, scale, ... )
+            var manipulatorsManager = Instantiate(manipulatorPrefab);
+            manipulatorsManager.ArKitObject = prefab.GetComponent<ArKitObject>();
+            manipulatorsManager.rayCastManager = rayCastManager;
+            manipulatorsManager.mainCamera = m_WorldSpaceCanvasCamera;
+
+            // Instantiate object selected visual queue ( circle under object )
+            var selectionVisualization = Instantiate(selectionPrefab, prefab.transform, true);
+            selectionVisualization.transform.localPosition = Vector3.zero;
+            selectionVisualization.transform.localScale = prefab.transform.localScale;
+
+            // Init prefab components
+            trackedImage.transform.parent = manipulatorsManager.transform;
+            trackedImage.gameObject.AddComponent<ArKitObject>();
+            trackedImage.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
+
+            // Set object selected
+            manipulationSystem.Select(prefab.GetComponent<ArKitObject>());
+        }
+
+        private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
         {
             foreach (var trackedImage in eventArgs.added)
             {
-                // Give the initial image a reasonable default scale
-                trackedImage.transform.localScale = new Vector3(0.01f, 1f, 0.01f);
-
-                UpdateInfo(trackedImage);
+                //// Give the initial image a reasonable default scale
+                //trackedImage.transform.localScale = new Vector3(0.01f, 1f, 0.01f);
+                SetImage(trackedImage);
+                //UpdateInfo(trackedImage);
             }
 
             foreach (var trackedImage in eventArgs.updated)
