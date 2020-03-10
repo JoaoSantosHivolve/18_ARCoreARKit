@@ -10,34 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea1208cb4bfc946f7aa1d7b5348cb086, type: 3}
-  m_Name: Example Database
+  m_Name: ARCore Database
   m_EditorClassIdentifier: 
   m_Images:
   - Name: Earth
     Width: 0
     Quality: 100
     TextureGUID: 260f5f218a40e49c0a0a55c499a121a8
-    LastModifiedTime: 04/02/2020 21:27:08
+    LastModifiedTime: 10/03/2020 11:23:04
   - Name: Cafe
     Width: 0
     Quality: 90
     TextureGUID: eb5110f6dab7f4990b554f43afb86d1c
-    LastModifiedTime: 04/02/2020 21:27:08
+    LastModifiedTime: 10/03/2020 11:23:04
   - Name: Keyboard
     Width: 0
     Quality: 100
     TextureGUID: 9d2a3984082644fd984fe961b7f8272e
-    LastModifiedTime: 04/02/2020 21:27:08
+    LastModifiedTime: 10/03/2020 11:23:04
   - Name: Winter
     Width: 0
     Quality: 80
     TextureGUID: 42bc152179d434ef8b9a73da7cf757e2
-    LastModifiedTime: 04/02/2020 21:27:08
+    LastModifiedTime: 10/03/2020 11:23:04
   - Name: Dog
     Width: 0
     Quality: 100
     TextureGUID: f372f305c00af444c8cb5eb7277ca24b
-    LastModifiedTime: 04/02/2020 21:27:08
+    LastModifiedTime: 10/03/2020 11:23:04
   - Name: Clothing
     Width: 0
     Quality: 90

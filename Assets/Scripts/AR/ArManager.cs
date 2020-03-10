@@ -6,6 +6,7 @@ using Assets.Scripts.Common;
 using GoogleARCore;
 using GoogleARCore.Examples.ObjectManipulation;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 namespace AR
 {
@@ -51,6 +52,7 @@ namespace AR
 
         [Header("Object marker components")] 
         public ArCoreMarkerController arCoreMarkerController;
+        public ARTrackedImageManager arKitMarkerController;
 
         [Header("ARCore components Sections")] 
         public GameObject arCoreMarkerSection;
