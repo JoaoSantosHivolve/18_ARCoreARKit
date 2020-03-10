@@ -1064,13 +1064,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   session: {fileID: 2167875078668868641}
-  m_MaxNumberOfMovingImages: 0
   m_SerializedLibrary: {fileID: 11400000, guid: c86e375d7e7430442a1104e88fa21f21,
     type: 2}
-  m_Prefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b, type: 3}
-  selectionPrefab: {fileID: 1825987397968370, guid: 7ab3787b240931a498e365a296b6f9ed,
-    type: 3}
-  manipulatorPrefab: {fileID: 7592958767603399410, guid: 6c0ceb05901e6c84aab775f043dcebce,
+  m_MaxNumberOfMovingImages: 0
+  m_TrackedImagePrefab: {fileID: 3312728602301253215, guid: 5d81b097707c58e4b949537763ba4bbe,
     type: 3}
 --- !u!114 &3069795784568840437
 MonoBehaviour:
