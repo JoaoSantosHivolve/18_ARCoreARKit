@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using AR.ARKit;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-namespace _3rdParty.ARKit.Scenes.ImageTracking
+namespace AR.ARKit.Marker
 {
     public class TrackedImageInfoManager : MonoBehaviour
     {

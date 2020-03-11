@@ -1,8 +1,9 @@
 ﻿using System;
-using _3rdParty.ARKit.Scenes.ImageTracking;
 using AR.ARCore;
 using AR.ARCore.Marker;
 using AR.ARKit;
+using AR.ARKit.FloorScanning;
+using AR.ARKit.Marker;
 using Assets.Scripts.Common;
 using GoogleARCore;
 using GoogleARCore.Examples.ObjectManipulation;
@@ -23,25 +24,24 @@ namespace AR
                 m_IsFloorScanning = value;
 
 #if UNITY_ANDROID
-                arCoreMarkerSection.SetActive(!IsFloorScanning);
-                arCoreFloorScanningSection.SetActive(IsFloorScanning);
+                arCoreMarkerSection.SetActive(!m_IsFloorScanning);
+                arCoreFloorScanningSection.SetActive(m_IsFloorScanning);
                 arCoreSession.DeviceCameraDirection = DeviceCameraDirection.FrontFacing;
-                arCoreSession.SessionConfig = IsFloorScanning ? floorScanningConfig : markerConfig;
+                arCoreSession.SessionConfig = m_IsFloorScanning ? floorScanningConfig : markerConfig;
                 // Resets image indexes
-                if(IsFloorScanning)
+                if(m_IsFloorScanning)
                     arCoreMarkerController.DeletePlacedObjects();
                 arCoreSession.DeviceCameraDirection = DeviceCameraDirection.BackFacing;
 #elif UNITY_IOS
-                arKitMarkerController.enabled = !IsFloorScanning;
-                arKitMarkerManager.enabled = !IsFloorScanning;
-
-                arKitPlacementManipulator.enabled = IsFloorScanning;
-                arKitPointCloud.enabled = IsFloorScanning;
-                arKitPlaneManager.enabled = IsFloorScanning;
+                arKitMarkerController.enabled = !m_IsFloorScanning;
+                arKitMarkerManager.enabled = !m_IsFloorScanning;
+                arKitPointCloudController.TogglePointCloudDetection(m_IsFloorScanning);
+                arKitPlaneController.TogglePlaneDetection(m_IsFloorScanning);
+                arKitPlacementManipulator.enabled = m_IsFloorScanning;
 #endif
             }
         }
-        [Header("Used on Awake Only!")]
+    [Header("Used on Awake Only!")]
         public bool isFloorScanning;
 
         [Header("AR Components")]
@@ -62,8 +62,8 @@ namespace AR
         public ARTrackedImageManager arKitMarkerManager;
 
         [Header("ARKit components Section")] 
-        public ARPointCloudManager arKitPointCloud;
-        public ARPlaneManager arKitPlaneManager;
+        public ArKitPointCloudController arKitPointCloudController;
+        public ArKitPlaneDetectionController arKitPlaneController;
 
         [Header("ARCore components Section")] 
         public GameObject arCoreMarkerSection;

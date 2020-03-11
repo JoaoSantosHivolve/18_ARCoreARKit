@@ -1234,9 +1234,68 @@ Transform:
   - {fileID: 3081773156160486656}
   - {fileID: 2000184180655939269}
   - {fileID: 1183660132}
+  - {fileID: 6042697869336982152}
   m_Father: {fileID: 3527871969183874583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3807753073480037812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6042697869336982152}
+  - component: {fileID: 6364463440253539116}
+  - component: {fileID: 4782723022143855758}
+  m_Layer: 0
+  m_Name: ARKIT Plane&Cloud Controllers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6042697869336982152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3807753073480037812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8246433083281331991}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6364463440253539116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3807753073480037812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5848dfc05b1289c499a50f5ee66ea01b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arPlaneManager: {fileID: 7130103818291394886}
+--- !u!114 &4782723022143855758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3807753073480037812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858f08efa09964b4bb5db82b13eccd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arPointCloudManager: {fileID: 7275688072188542122}
 --- !u!1 &4134415260564129166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,8 +1475,8 @@ MonoBehaviour:
   arCoreMarkerController: {fileID: 4134415260564129167}
   arKitMarkerController: {fileID: 8059385825430194538}
   arKitMarkerManager: {fileID: 1446472447103262626}
-  arKitPointCloud: {fileID: 7275688072188542122}
-  arKitPlaneManager: {fileID: 7130103818291394886}
+  arKitPointCloudController: {fileID: 4782723022143855758}
+  arKitPlaneController: {fileID: 6364463440253539116}
   arCoreMarkerSection: {fileID: 4544480456448502924}
   arCoreFloorScanningSection: {fileID: 8815527413143323522}
   arCoreSession: {fileID: 178483721021941864}
@@ -2106,18 +2165,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90290c13d4a3d46eea32be3d6a1a14c4, type: 3}
---- !u!114 &4902017616512973832 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3811591508773167261, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
+--- !u!4 &4902017616512973834 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3811591508773167263, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
     type: 3}
   m_PrefabInstance: {fileID: 8134074067057089685}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa850fbd5b8aded44846f96e35f1a9f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4902017616512973837 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3811591508773167256, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
@@ -2130,12 +2183,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3859a92a05d4f5d418cb6ca605290e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4902017616512973834 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3811591508773167263, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
+--- !u!114 &4902017616512973832 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3811591508773167261, guid: 90290c13d4a3d46eea32be3d6a1a14c4,
     type: 3}
   m_PrefabInstance: {fileID: 8134074067057089685}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa850fbd5b8aded44846f96e35f1a9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8190650754242261365
 PrefabInstance:
   m_ObjectHideFlags: 0
