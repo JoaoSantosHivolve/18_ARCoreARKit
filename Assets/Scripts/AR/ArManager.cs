@@ -99,8 +99,9 @@ namespace AR
             arCoreMarkerController.prefab = prefab;
 #elif UNITY_IOS
             arKitPlacementManipulator.placedPrefab = prefab;
-            arKitMarkerController.Prefab = prefab;
+            arKitMarkerController.prefab = prefab;
 #endif
+
         }
 
         public void SetPlacedObjectVisibility(bool state)
