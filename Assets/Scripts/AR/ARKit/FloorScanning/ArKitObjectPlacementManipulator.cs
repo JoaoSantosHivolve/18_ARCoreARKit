@@ -65,7 +65,8 @@ namespace AR.ARKit
                     // Instantiate object selected visual queue ( circle under object )
                     var selectionVisualization = Instantiate(selectionVisualizationPrefab, prefab.transform, true);
                     selectionVisualization.transform.localPosition = Vector3.zero;
-                    selectionVisualization.transform.localScale = Vector3.zero;
+                    selectionVisualization.transform.localScale = prefab.transform.localScale;
+                    selectionVisualization.transform.localRotation = Quaternion.Euler(0,0,0);
 
                     // Init prefabs components
                     prefab.transform.parent = manipulatorsManager.transform;

@@ -126,7 +126,8 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
             // Instantiate object selected visual queue ( circle under object )
             var selectionVisualization = Instantiate(selectionPrefab, trackedImage.transform, true);
             selectionVisualization.transform.localPosition = Vector3.zero;
-            selectionVisualization.transform.localScale = Vector3.zero;
+            selectionVisualization.transform.localScale = prefab.transform.localScale;
+            selectionVisualization.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
             // Init prefab components
             trackedImage.transform.parent = manipulatorsManager.transform;

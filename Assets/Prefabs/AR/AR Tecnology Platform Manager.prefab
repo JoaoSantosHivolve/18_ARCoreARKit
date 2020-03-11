@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3958a91f9f030d042bbc7717bfb859de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFloorScanning: 1
+  isFloorScanning: 0
   arKitSection: {fileID: 2667448986062212803}
   arCoreSection: {fileID: 2510049215276967855}
   arCorePlacementManipulator: {fileID: 6008070325310920720}
