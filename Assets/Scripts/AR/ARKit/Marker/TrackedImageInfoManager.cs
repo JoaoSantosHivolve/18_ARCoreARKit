@@ -117,7 +117,7 @@ namespace AR.ARKit.Marker
             trackedImage.gameObject.AddComponent<ArKitObject>();
 
             // Instantiate object manipulators ( rotate, position, scale, ... )
-            var manipulatorsManager = Instantiate(manipulatorPrefab);
+            var manipulatorsManager = Instantiate(manipulatorPrefab, trackedImage.transform.parent, true);
             manipulatorsManager.ArKitObject = trackedImage.GetComponent<ArKitObject>();
             manipulatorsManager.rayCastManager = rayCastManager;
             manipulatorsManager.mainCamera = m_WorldSpaceCanvasCamera;
