@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using AR.ARKit;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -40,7 +38,6 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
 
         ARTrackedImageManager m_TrackedImageManager;
 
-       
         public ARRaycastManager rayCastManager;
         public ArKitManipulationSystem manipulationSystem;
 
@@ -129,7 +126,7 @@ namespace _3rdParty.ARKit.Scenes.ImageTracking
             // Instantiate object selected visual queue ( circle under object )
             var selectionVisualization = Instantiate(selectionPrefab, trackedImage.transform, true);
             selectionVisualization.transform.localPosition = Vector3.zero;
-            selectionVisualization.transform.localScale = trackedImage.transform.localScale;
+            selectionVisualization.transform.localScale = Vector3.zero;
 
             // Init prefab components
             trackedImage.transform.parent = manipulatorsManager.transform;

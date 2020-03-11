@@ -13,7 +13,7 @@ namespace AR
 {
     public class ArManager : Singleton<ArManager>
     {
-        [Header("AR Settings")] 
+        [Header("AR Settings")]
         private bool m_IsFloorScanning;
         public bool IsFloorScanning
         {
@@ -32,7 +32,12 @@ namespace AR
                     arCoreMarkerController.DeletePlacedObjects();
                 arCoreSession.DeviceCameraDirection = DeviceCameraDirection.BackFacing;
 #elif UNITY_IOS
-                
+                arKitMarkerController.enabled = !IsFloorScanning;
+                arKitMarkerManager.enabled = !IsFloorScanning;
+
+                arKitPlacementManipulator.enabled = IsFloorScanning;
+                arKitPointCloud.enabled = IsFloorScanning;
+                arKitPlaneManager.enabled = IsFloorScanning;
 #endif
             }
         }
@@ -54,8 +59,13 @@ namespace AR
         [Header("Object marker components")] 
         public ArCoreMarkerController arCoreMarkerController;
         public TrackedImageInfoManager arKitMarkerController;
+        public ARTrackedImageManager arKitMarkerManager;
 
-        [Header("ARCore components Sections")] 
+        [Header("ARKit components Section")] 
+        public ARPointCloudManager arKitPointCloud;
+        public ARPlaneManager arKitPlaneManager;
+
+        [Header("ARCore components Section")] 
         public GameObject arCoreMarkerSection;
         public GameObject arCoreFloorScanningSection;
 
@@ -67,7 +77,6 @@ namespace AR
         protected override void Awake()
         {
             IsFloorScanning = isFloorScanning;
-
 #if UNITY_ANDROID
             arKitSection.SetActive(false);
             arCoreSection.SetActive(true);
@@ -90,6 +99,7 @@ namespace AR
             arCoreMarkerController.prefab = prefab;
 #elif UNITY_IOS
             arKitPlacementManipulator.placedPrefab = prefab;
+            arKitMarkerController.Prefab = prefab;
 #endif
         }
 
@@ -103,6 +113,7 @@ namespace AR
             arKitMarkerController.SetVisibility(state);
 #endif
         }
+
         public void DeletePlacedObjects()
         {
 #if UNITY_ANDROID
@@ -111,9 +122,9 @@ namespace AR
             arCoreMarkerController.DeletePlacedObjects();
 #elif UNITY_IOS
             arKitPlacementManipulator.DeletePlacedObjects();
-
 #endif
         }
+
         public void DeleteSelectedObject()
         {
 #if UNITY_ANDROID

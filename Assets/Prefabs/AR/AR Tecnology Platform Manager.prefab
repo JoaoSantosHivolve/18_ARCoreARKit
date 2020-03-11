@@ -1415,6 +1415,9 @@ MonoBehaviour:
   arKitManipulationSystem: {fileID: 1183660133}
   arCoreMarkerController: {fileID: 4134415260564129167}
   arKitMarkerController: {fileID: 8059385825430194538}
+  arKitMarkerManager: {fileID: 1446472447103262626}
+  arKitPointCloud: {fileID: 7275688072188542122}
+  arKitPlaneManager: {fileID: 7130103818291394886}
   arCoreMarkerSection: {fileID: 4544480456448502924}
   arCoreFloorScanningSection: {fileID: 8815527413143323522}
   arCoreSession: {fileID: 178483721021941864}

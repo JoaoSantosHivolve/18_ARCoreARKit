@@ -2913,6 +2913,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4544480456448502924, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
+        type: 3}
+      propertyPath: m_Name
+      value: COMPONENTS - Marker
+      objectReference: {fileID: 0}
     - target: {fileID: 5636037092796538156, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
         type: 3}
       propertyPath: m_Name
@@ -2922,6 +2927,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_DetectionMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815527413143323522, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
+        type: 3}
+      propertyPath: m_Name
+      value: COMPONENTS - Floor Scanning
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
