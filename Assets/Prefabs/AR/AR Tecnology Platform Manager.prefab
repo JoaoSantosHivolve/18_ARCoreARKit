@@ -1235,9 +1235,63 @@ Transform:
   - {fileID: 2000184180655939269}
   - {fileID: 1183660132}
   - {fileID: 6042697869336982152}
+  - {fileID: 2610050363185952146}
   m_Father: {fileID: 3527871969183874583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3013142514708745965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2610050363185952146}
+  - component: {fileID: 2901832917854925481}
+  m_Layer: 0
+  m_Name: ARKIT Marker Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2610050363185952146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013142514708745965}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8246433083281331991}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2901832917854925481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013142514708745965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251f2119baf856b4fbfbdaf563c36383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 6295769464456448169}
+  trackedImageManager: {fileID: 1446472447103262626}
+  rayCastManager: {fileID: 948078804023074198}
+  manipulationSystem: {fileID: 1183660133}
+  prefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b, type: 3}
+  selectionPrefab: {fileID: 1825987397968370, guid: 7ab3787b240931a498e365a296b6f9ed,
+    type: 3}
+  runtimeAnimatorController: {fileID: 9100000, guid: 4e1ae249321386045b2974b3395d2f3a,
+    type: 2}
+  placedObjects: []
 --- !u!1 &3807753073480037812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1527,7 @@ MonoBehaviour:
   arCoreManipulationSystem: {fileID: 3952255767178077365}
   arKitManipulationSystem: {fileID: 1183660133}
   arCoreMarkerController: {fileID: 4134415260564129167}
-  arKitMarkerController: {fileID: 8059385825430194538}
+  arKitMarkerController: {fileID: 2901832917854925481}
   arKitMarkerManager: {fileID: 1446472447103262626}
   arKitPointCloudController: {fileID: 4782723022143855758}
   arKitPlaneController: {fileID: 6364463440253539116}
@@ -1778,7 +1832,6 @@ GameObject:
   - component: {fileID: 7130103818291394886}
   - component: {fileID: 7275688072188542122}
   - component: {fileID: 948078804023074198}
-  - component: {fileID: 8059385825430194538}
   - component: {fileID: 1446472447103262626}
   m_Layer: 0
   m_Name: ARKIT Session Origin
@@ -1856,30 +1909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8059385825430194538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7218774531034320275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251f2119baf856b4fbfbdaf563c36383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_WorldSpaceCanvasCamera: {fileID: 6295769464456448169}
-  m_DefaultTexture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
-  rayCastManager: {fileID: 948078804023074198}
-  manipulationSystem: {fileID: 1183660133}
-  prefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b, type: 3}
-  manipulatorPrefab: {fileID: 4450281437813955242, guid: 6c0ceb05901e6c84aab775f043dcebce,
-    type: 3}
-  selectionPrefab: {fileID: 1825987397968370, guid: 7ab3787b240931a498e365a296b6f9ed,
-    type: 3}
-  runtimeAnimatorController: {fileID: 9100000, guid: 4e1ae249321386045b2974b3395d2f3a,
-    type: 2}
-  placedObjects: []
 --- !u!114 &1446472447103262626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1895,7 +1924,7 @@ MonoBehaviour:
   m_SerializedLibrary: {fileID: 11400000, guid: c86e375d7e7430442a1104e88fa21f21,
     type: 2}
   m_MaxNumberOfMovingImages: 4
-  m_TrackedImagePrefab: {fileID: 3312728602301253215, guid: 5d81b097707c58e4b949537763ba4bbe,
+  m_TrackedImagePrefab: {fileID: 7592958767603399410, guid: 6c0ceb05901e6c84aab775f043dcebce,
     type: 3}
 --- !u!1 &7304967526955463109
 GameObject:
@@ -2072,6 +2101,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c10877f7cd5764de18d46d7b777d1faa, type: 3}
+--- !u!20 &264339242666391154 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 20155940112608238, guid: c10877f7cd5764de18d46d7b777d1faa,
+    type: 3}
+  m_PrefabInstance: {fileID: 282746684345539996}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &280151516224350094 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4442908887562770, guid: c10877f7cd5764de18d46d7b777d1faa,
@@ -2090,12 +2125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ca0c6a3af6b4635b7e98c6ea0a0cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!20 &264339242666391154 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 20155940112608238, guid: c10877f7cd5764de18d46d7b777d1faa,
-    type: 3}
-  m_PrefabInstance: {fileID: 282746684345539996}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8134074067057089685
 PrefabInstance:
   m_ObjectHideFlags: 0

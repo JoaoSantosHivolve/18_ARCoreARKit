@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using GoogleARCore.Examples.ObjectManipulation;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-namespace AR.ARKit
+namespace AR.ARKit.FloorScanning
 {
     public class ArKitObjectPlacementManipulator : MonoBehaviour
     {

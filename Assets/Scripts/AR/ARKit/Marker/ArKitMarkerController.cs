@@ -1,76 +1,35 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
 namespace AR.ARKit.Marker
 {
-    public class TrackedImageInfoManager : MonoBehaviour
+    public class ArKitMarkerController : MonoBehaviour
     {
-        [SerializeField]
-        [Tooltip("The camera to set on the world space UI canvas for each instantiated image info.")]
-        Camera m_WorldSpaceCanvasCamera;
-
-        /// <summary>
-        /// The prefab has a world space UI canvas,
-        /// which requires a camera to function properly.
-        /// </summary>
-        public Camera worldSpaceCanvasCamera
-        {
-            get { return m_WorldSpaceCanvasCamera; }
-            set { m_WorldSpaceCanvasCamera = value; }
-        }
-
-        [SerializeField]
-        [Tooltip("If an image is detected but no source texture can be found, this texture is used instead.")]
-        Texture2D m_DefaultTexture;
-
-        /// <summary>
-        /// If an image is detected but no source texture can be found,
-        /// this texture is used instead.
-        /// </summary>
-        public Texture2D defaultTexture
-        {
-            get { return m_DefaultTexture; }
-            set { m_DefaultTexture = value; }
-        }
-
-        ARTrackedImageManager m_TrackedImageManager;
-
+        public Camera mainCamera;
+        public ARTrackedImageManager trackedImageManager;
         public ARRaycastManager rayCastManager;
         public ArKitManipulationSystem manipulationSystem;
 
         [Header("Prefabs to Instantiate")]
-        [SerializeField] private GameObject prefab;
-        public GameObject Prefab
-        {
-            get => prefab;
-            set
-            {
-                prefab = value;
-                m_TrackedImageManager.trackedImagePrefab = value;
-            }
-        }
-        public ArKitManipulatorsManager manipulatorPrefab;
+        public GameObject prefab;
         public GameObject selectionPrefab;
+
         [Header("Instantiated object animator")]
         public RuntimeAnimatorController runtimeAnimatorController;
 
         [Header("Instantiated objects")]
-        public List<ArKitManipulatorsManager> placedObjects = new List<ArKitManipulatorsManager>();
+        public List<GameObject> placedObjects = new List<GameObject>();
 
-        private void Awake()
-        {
-            m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
-            Prefab = prefab;
-        }
         private void OnEnable()
         {
-            m_TrackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
+            trackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
         }
         private void OnDisable()
         {
-            m_TrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
+            trackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
         }
 
         void UpdateInfo(ARTrackedImage trackedImage)
@@ -114,29 +73,28 @@ namespace AR.ARKit.Marker
 
         private void SetImage(ARTrackedImage trackedImage)
         {
-            trackedImage.gameObject.AddComponent<ArKitObject>();
+            var placedPrefab = Instantiate(prefab, trackedImage.transform.position, trackedImage.transform.rotation, trackedImage.transform);
+            placedPrefab.AddComponent<ArKitObject>();
 
-            // Instantiate object manipulators ( rotate, position, scale, ... )
-            var manipulatorsManager = Instantiate(manipulatorPrefab, trackedImage.transform.parent, true);
-            manipulatorsManager.ArKitObject = trackedImage.GetComponent<ArKitObject>();
-            manipulatorsManager.rayCastManager = rayCastManager;
-            manipulatorsManager.mainCamera = m_WorldSpaceCanvasCamera;
+            // Init object manipulator ( Tracked Image )
+            trackedImage.GetComponent<ArKitManipulatorsManager>().ArKitObject = placedPrefab.GetComponent<ArKitObject>();
+            trackedImage.GetComponent<ArKitManipulatorsManager>().rayCastManager = rayCastManager;
+            trackedImage.GetComponent<ArKitManipulatorsManager>().mainCamera = mainCamera;
 
             // Instantiate object selected visual queue ( circle under object )
-            var selectionVisualization = Instantiate(selectionPrefab, trackedImage.transform, true);
+            var selectionVisualization = Instantiate(selectionPrefab, placedPrefab.transform, true);
             selectionVisualization.transform.localPosition = Vector3.zero;
-            selectionVisualization.transform.localScale = prefab.transform.localScale;
+            selectionVisualization.transform.localScale = placedPrefab.transform.localScale;
             selectionVisualization.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
             // Init prefab components
-            trackedImage.transform.parent = manipulatorsManager.transform;
-            trackedImage.GetComponent<ArKitObject>().Init(manipulatorsManager, selectionVisualization, runtimeAnimatorController);
+            placedPrefab.GetComponent<ArKitObject>().Init(trackedImage.GetComponent<ArKitManipulatorsManager>(), selectionVisualization, runtimeAnimatorController);
 
             // Set object selected
-            manipulationSystem.Select(trackedImage.GetComponent<ArKitObject>());
+            manipulationSystem.Select(placedPrefab.GetComponent<ArKitObject>());
 
             // Add to list
-            placedObjects.Add(manipulatorsManager);
+            placedObjects.Add(trackedImage.gameObject);
         }
 
         public void SetVisibility(bool state)

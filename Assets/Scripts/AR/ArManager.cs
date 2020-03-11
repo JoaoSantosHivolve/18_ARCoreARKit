@@ -58,7 +58,7 @@ namespace AR
 
         [Header("Object marker components")] 
         public ArCoreMarkerController arCoreMarkerController;
-        public TrackedImageInfoManager arKitMarkerController;
+        public ArKitMarkerController arKitMarkerController;
         public ARTrackedImageManager arKitMarkerManager;
 
         [Header("ARKit components Section")] 
