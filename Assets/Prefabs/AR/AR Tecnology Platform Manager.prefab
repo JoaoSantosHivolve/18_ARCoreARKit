@@ -1286,6 +1286,7 @@ MonoBehaviour:
   trackedImageManager: {fileID: 1446472447103262626}
   rayCastManager: {fileID: 948078804023074198}
   manipulationSystem: {fileID: 1183660133}
+  fitScanToOverlay: {fileID: 6801182004343448291}
   prefab: {fileID: 1513252861858756, guid: 8b604092cbb3d482da82845b61a6809b, type: 3}
   selectionPrefab: {fileID: 1825987397968370, guid: 7ab3787b240931a498e365a296b6f9ed,
     type: 3}
@@ -1452,7 +1453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5829401715609104459}
   m_Layer: 0
-  m_Name: Marker Components
+  m_Name: COMPONENTS - Marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1470,7 +1471,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4134415260564129164}
-  - {fileID: 6801182005390454558}
   m_Father: {fileID: 8099514725654227669}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1504,6 +1504,7 @@ Transform:
   m_Children:
   - {fileID: 8246433083281331991}
   - {fileID: 8099514725654227669}
+  - {fileID: 6801182005390454558}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1610,7 +1611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6801182004343448290
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1626,7 +1627,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1703,13 +1704,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6801182005390454546}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 6801182004343448290}
-  m_Father: {fileID: 5829401715609104459}
-  m_RootOrder: 1
+  m_Father: {fileID: 3527871969183874583}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1882,7 +1883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 1568414836858200, guid: f0e0be81472ff1243aa2afa27e5d0e61,
     type: 3}
-  m_DetectionMode: -1
+  m_DetectionMode: 1
 --- !u!114 &7275688072188542122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2033,7 +2034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 848054343288125040}
   m_Layer: 0
-  m_Name: Floor scanning Components
+  m_Name: COMPONENTS - Floor Scanning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

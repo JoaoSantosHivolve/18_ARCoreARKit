@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1208cb4bfc946f7aa1d7b5348cb086, type: 3}
+  m_Name: ARCore Database
+  m_EditorClassIdentifier: 
+  m_Images:
+  - Name: DebugMarker
+    Width: 0
+    Quality: 
+    TextureGUID: 567aa791ad8e88547bb49ec90682d5ce
+    LastModifiedTime: 24/09/2019 16:24:35
+  m_RawData: 
+  m_IsRawDataDirty: 1
+  m_CliVersion: 

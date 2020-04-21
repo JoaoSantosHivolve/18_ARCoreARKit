@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -12,6 +11,9 @@ namespace AR.ARKit.Marker
         public ARTrackedImageManager trackedImageManager;
         public ARRaycastManager rayCastManager;
         public ArKitManipulationSystem manipulationSystem;
+
+        [Header("Overlay when detecting markers")]
+        public GameObject fitScanToOverlay;
 
         [Header("Prefabs to Instantiate")]
         public GameObject prefab;
@@ -30,28 +32,11 @@ namespace AR.ARKit.Marker
         private void OnDisable()
         {
             trackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
+            fitScanToOverlay.SetActive(false);
         }
 
-        void UpdateInfo(ARTrackedImage trackedImage)
+        private void UpdateInfo(ARTrackedImage trackedImage)
         {
-           //// Set canvas camera
-           //var canvas = trackedImage.GetComponentInChildren<Canvas>();
-           //canvas.worldCamera = worldSpaceCanvasCamera;
-           //
-           //// Update information about the tracked image
-           //var text = canvas.GetComponentInChildren<Text>();
-           //text.text = string.Format(
-           //    "{0}\ntrackingState: {1}\nGUID: {2}\nReference size: {3} cm\nDetected size: {4} cm",
-           //    trackedImage.referenceImage.name,
-           //    trackedImage.trackingState,
-           //    trackedImage.referenceImage.guid,
-           //    trackedImage.referenceImage.size * 100f,
-           //    trackedImage.size * 100f);
-           //
-           //var planeParentGo = trackedImage.transform.GetChild(0).gameObject;
-           //var planeGo = planeParentGo.transform.GetChild(0).gameObject;
-           //
-            // Disable the visual plane if it is not being tracked
             if (trackedImage.trackingState != TrackingState.None)
             {
                 //trackedImage.gameObject.SetActive(true);
@@ -71,7 +56,7 @@ namespace AR.ARKit.Marker
             }
         }
 
-        private void SetImage(ARTrackedImage trackedImage)
+        private void SetImage(Component trackedImage)
         {
             var placedPrefab = Instantiate(prefab, trackedImage.transform.position, trackedImage.transform.rotation, trackedImage.transform);
             placedPrefab.AddComponent<ArKitObject>();
@@ -111,15 +96,19 @@ namespace AR.ARKit.Marker
         private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
         {
             foreach (var trackedImage in eventArgs.added)
-            {
-                //// Give the initial image a reasonable default scale
-                //trackedImage.transform.localScale = new Vector3(0.01f, 1f, 0.01f);
                 SetImage(trackedImage);
-                //UpdateInfo(trackedImage);
-            }
 
             foreach (var trackedImage in eventArgs.updated)
                 UpdateInfo(trackedImage);
+
+            foreach (var trackedImage in eventArgs.updated)
+                if (trackedImage.trackingState == TrackingState.Tracking)
+                {
+                    fitScanToOverlay.SetActive(false);
+                    return;
+                }
+
+            fitScanToOverlay.SetActive(true);
         }
     }
 }

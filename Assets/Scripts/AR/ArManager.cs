@@ -76,6 +76,8 @@ namespace AR
 
         protected override void Awake()
         {
+            base.Awake();
+
             IsFloorScanning = isFloorScanning;
 #if UNITY_ANDROID
             arKitSection.SetActive(false);

@@ -2913,25 +2913,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4544480456448502924, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
-        type: 3}
-      propertyPath: m_Name
-      value: COMPONENTS - Marker
-      objectReference: {fileID: 0}
     - target: {fileID: 5636037092796538156, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
         type: 3}
       propertyPath: m_Name
       value: AR Tecnology Platform Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 7130103818291394886, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
+    - target: {fileID: 6801182004343448290, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
         type: 3}
-      propertyPath: m_DetectionMode
-      value: 1
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8815527413143323522, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
+    - target: {fileID: 6801182004343448290, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
         type: 3}
-      propertyPath: m_Name
-      value: COMPONENTS - Floor Scanning
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801182004343448290, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b9a2cdca079144f9ff4b4c1a0d53c0, type: 3}
