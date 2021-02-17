@@ -67,8 +67,9 @@ namespace AR.ARCore
                 return;
             }
 
-            if (IsPointerOverUiObject(gesture))
-                return;
+            // BUGGED - NO FUCKING IDEIA WHY
+            //if (IsPointerOverUiObject(gesture))
+            //    return;
 
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
@@ -133,7 +134,6 @@ namespace AR.ARCore
                     o.GetComponent<Manipulator>().Deselect();
             }
         }
-
         public void DeletePlacedObjects()
         {
             foreach (var o in placedObjects)
